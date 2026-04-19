@@ -9,4 +9,5 @@ import type { UserResponseDTO } from './userResponseDTO';
 export interface AuthResponseDTO {
   user?: UserResponseDTO;
   token?: string;
+  refreshToken?: string;
 }

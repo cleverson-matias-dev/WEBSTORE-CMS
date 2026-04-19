@@ -17,6 +17,7 @@ export * from './internalErrorResponse';
 export * from './loginDTO';
 export * from './notFoundResponse';
 export * from './paginatedUserResultDTO';
+export * from './refreshDTO';
 export * from './updateUserDTO';
 export * from './updateUserDTORole';
 export * from './userResponseDTO';

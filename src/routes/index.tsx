@@ -9,11 +9,14 @@ import { Login } from '@/pages/Login'
 import { Customers } from '@/pages/Customers'
 import { Settings } from '@/pages/Settings'
 import { Register } from '@/pages/Register'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
+import Unauthorized from '@/pages/Unauthorized'
+import NotFound from '@/pages/NotFound'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <DashboardLayout />, // O layout com Sidebar e Header
+    element: <ProtectedRoute allowedRoles={['admin']}><DashboardLayout /></ProtectedRoute>,
     children: [
       { path: '/', element: <DashboardHome /> },
       { path: '/products', element: <ProductList /> },
@@ -30,4 +33,12 @@ export const router = createBrowserRouter([
       { path: 'register', element: <Register /> },
     ],
   },
+  {
+    path: '/unauthorized',
+    element: <Unauthorized></Unauthorized>
+  },
+  {
+    path: '*',
+    element: <NotFound></NotFound>
+  }
 ])

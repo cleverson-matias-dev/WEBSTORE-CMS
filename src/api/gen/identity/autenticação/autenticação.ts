@@ -19,6 +19,7 @@ import type {
   CreateUserDTO,
   ErrorResponseDTO,
   LoginDTO,
+  RefreshDTO,
   UserResponseDTO
 } from '../model';
 
@@ -32,14 +33,14 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 /**
  * @summary Registrar um novo usuário
  */
-export const postUsersAuthRegister = (
+export const postIdentityApiV1UsersAuthRegister = (
     createUserDTO: CreateUserDTO,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
       return customInstance<UserResponseDTO>(
-      {url: `/users/auth/register`, method: 'POST',
+      {url: `/identity/api/v1/users/auth/register`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createUserDTO, signal
     },
@@ -48,11 +49,11 @@ export const postUsersAuthRegister = (
 
 
 
-export const getPostUsersAuthRegisterMutationOptions = <TError = ErrorResponseDTO,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postUsersAuthRegister>>, TError,{data: CreateUserDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postUsersAuthRegister>>, TError,{data: CreateUserDTO}, TContext> => {
+export const getPostIdentityApiV1UsersAuthRegisterMutationOptions = <TError = ErrorResponseDTO,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRegister>>, TError,{data: CreateUserDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRegister>>, TError,{data: CreateUserDTO}, TContext> => {
 
-const mutationKey = ['postUsersAuthRegister'];
+const mutationKey = ['postIdentityApiV1UsersAuthRegister'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -62,10 +63,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postUsersAuthRegister>>, {data: CreateUserDTO}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRegister>>, {data: CreateUserDTO}> = (props) => {
           const {data} = props ?? {};
 
-          return  postUsersAuthRegister(data,requestOptions)
+          return  postIdentityApiV1UsersAuthRegister(data,requestOptions)
         }
 
 
@@ -75,34 +76,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostUsersAuthRegisterMutationResult = NonNullable<Awaited<ReturnType<typeof postUsersAuthRegister>>>
-    export type PostUsersAuthRegisterMutationBody = CreateUserDTO
-    export type PostUsersAuthRegisterMutationError = ErrorResponseDTO
+    export type PostIdentityApiV1UsersAuthRegisterMutationResult = NonNullable<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRegister>>>
+    export type PostIdentityApiV1UsersAuthRegisterMutationBody = CreateUserDTO
+    export type PostIdentityApiV1UsersAuthRegisterMutationError = ErrorResponseDTO
 
     /**
  * @summary Registrar um novo usuário
  */
-export const usePostUsersAuthRegister = <TError = ErrorResponseDTO,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postUsersAuthRegister>>, TError,{data: CreateUserDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const usePostIdentityApiV1UsersAuthRegister = <TError = ErrorResponseDTO,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRegister>>, TError,{data: CreateUserDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postUsersAuthRegister>>,
+        Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRegister>>,
         TError,
         {data: CreateUserDTO},
         TContext
       > => {
-      return useMutation(getPostUsersAuthRegisterMutationOptions(options), queryClient);
+      return useMutation(getPostIdentityApiV1UsersAuthRegisterMutationOptions(options), queryClient);
     }
     /**
  * @summary Autenticar usuário
  */
-export const postUsersAuthLogin = (
+export const postIdentityApiV1UsersAuthLogin = (
     loginDTO: LoginDTO,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
       return customInstance<AuthResponseDTO>(
-      {url: `/users/auth/login`, method: 'POST',
+      {url: `/identity/api/v1/users/auth/login`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: loginDTO, signal
     },
@@ -111,11 +112,11 @@ export const postUsersAuthLogin = (
 
 
 
-export const getPostUsersAuthLoginMutationOptions = <TError = ErrorResponseDTO,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postUsersAuthLogin>>, TError,{data: LoginDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postUsersAuthLogin>>, TError,{data: LoginDTO}, TContext> => {
+export const getPostIdentityApiV1UsersAuthLoginMutationOptions = <TError = ErrorResponseDTO,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthLogin>>, TError,{data: LoginDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthLogin>>, TError,{data: LoginDTO}, TContext> => {
 
-const mutationKey = ['postUsersAuthLogin'];
+const mutationKey = ['postIdentityApiV1UsersAuthLogin'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -125,10 +126,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postUsersAuthLogin>>, {data: LoginDTO}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthLogin>>, {data: LoginDTO}> = (props) => {
           const {data} = props ?? {};
 
-          return  postUsersAuthLogin(data,requestOptions)
+          return  postIdentityApiV1UsersAuthLogin(data,requestOptions)
         }
 
 
@@ -138,20 +139,83 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostUsersAuthLoginMutationResult = NonNullable<Awaited<ReturnType<typeof postUsersAuthLogin>>>
-    export type PostUsersAuthLoginMutationBody = LoginDTO
-    export type PostUsersAuthLoginMutationError = ErrorResponseDTO
+    export type PostIdentityApiV1UsersAuthLoginMutationResult = NonNullable<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthLogin>>>
+    export type PostIdentityApiV1UsersAuthLoginMutationBody = LoginDTO
+    export type PostIdentityApiV1UsersAuthLoginMutationError = ErrorResponseDTO
 
     /**
  * @summary Autenticar usuário
  */
-export const usePostUsersAuthLogin = <TError = ErrorResponseDTO,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postUsersAuthLogin>>, TError,{data: LoginDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const usePostIdentityApiV1UsersAuthLogin = <TError = ErrorResponseDTO,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthLogin>>, TError,{data: LoginDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postUsersAuthLogin>>,
+        Awaited<ReturnType<typeof postIdentityApiV1UsersAuthLogin>>,
         TError,
         {data: LoginDTO},
         TContext
       > => {
-      return useMutation(getPostUsersAuthLoginMutationOptions(options), queryClient);
+      return useMutation(getPostIdentityApiV1UsersAuthLoginMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Renovar autenticção do usuário
+ */
+export const postIdentityApiV1UsersAuthRefresh = (
+    refreshDTO: RefreshDTO,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+
+
+      return customInstance<AuthResponseDTO>(
+      {url: `/identity/api/v1/users/auth/refresh`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: refreshDTO, signal
+    },
+      options);
+    }
+
+
+
+export const getPostIdentityApiV1UsersAuthRefreshMutationOptions = <TError = ErrorResponseDTO,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRefresh>>, TError,{data: RefreshDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRefresh>>, TError,{data: RefreshDTO}, TContext> => {
+
+const mutationKey = ['postIdentityApiV1UsersAuthRefresh'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRefresh>>, {data: RefreshDTO}> = (props) => {
+          const {data} = props ?? {};
+
+          return  postIdentityApiV1UsersAuthRefresh(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostIdentityApiV1UsersAuthRefreshMutationResult = NonNullable<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRefresh>>>
+    export type PostIdentityApiV1UsersAuthRefreshMutationBody = RefreshDTO
+    export type PostIdentityApiV1UsersAuthRefreshMutationError = ErrorResponseDTO
+
+    /**
+ * @summary Renovar autenticção do usuário
+ */
+export const usePostIdentityApiV1UsersAuthRefresh = <TError = ErrorResponseDTO,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRefresh>>, TError,{data: RefreshDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof postIdentityApiV1UsersAuthRefresh>>,
+        TError,
+        {data: RefreshDTO},
+        TContext
+      > => {
+      return useMutation(getPostIdentityApiV1UsersAuthRefreshMutationOptions(options), queryClient);
     }

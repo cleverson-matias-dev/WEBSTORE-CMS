@@ -5,10 +5,8 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface ImageResponseDTO {
-  id: string;
-  product_id: string;
+export interface ProductImageDTO {
+  product_id?: string;
   url: string;
   ordem: number;
-  created_at: string;
 }

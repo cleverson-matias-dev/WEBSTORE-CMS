@@ -10,5 +10,5 @@ export interface CreateCategoryDTO {
   name: string;
   /** @nullable */
   parent_id?: string | null;
-  slug?: string;
+  slug: string;
 }

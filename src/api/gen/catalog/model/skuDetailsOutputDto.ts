@@ -6,13 +6,14 @@
  */
 
 export interface SkuDetailsOutputDto {
-  id?: string;
-  product_id?: string;
-  sku_code?: string;
-  price?: number;
-  currency?: string;
-  weight?: number;
-  dimensions?: string;
-  created_at?: string;
-  updated_at?: string;
+  id: string;
+  product_id: string;
+  sku_code: string;
+  quantity: number;
+  price: number;
+  currency: string;
+  weight: number;
+  dimensions: string;
+  created_at: string;
+  updated_at: string;
 }

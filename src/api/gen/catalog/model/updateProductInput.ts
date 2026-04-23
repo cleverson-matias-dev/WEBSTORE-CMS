@@ -6,7 +6,7 @@
  */
 
 export interface UpdateProductInput {
-  name?: string;
-  description?: string;
-  category_id?: string;
+  name: string;
+  description: string;
+  category_id: string;
 }

@@ -7,6 +7,6 @@
 import type { ErrorResponseDTO } from './errorResponseDTO';
 
 /**
- * Conflito de dados (ex. SKU Code já existe)
+ * Conflito de dados
  */
 export type ConflictResponse = ErrorResponseDTO;

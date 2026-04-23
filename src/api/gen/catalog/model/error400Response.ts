@@ -7,6 +7,6 @@
 import type { ErrorResponseDTO } from './errorResponseDTO';
 
 /**
- * Requisição inválida (Erro de validação ou sintaxe)
+ * Requisição inválida
  */
 export type Error400Response = ErrorResponseDTO;

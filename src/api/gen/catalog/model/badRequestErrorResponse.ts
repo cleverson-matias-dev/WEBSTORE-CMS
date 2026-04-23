@@ -7,6 +7,6 @@
 import type { ErrorResponseDTO } from './errorResponseDTO';
 
 /**
- * Erro de validação ou requisição malformada
+ * Erro de validação
  */
 export type BadRequestErrorResponse = ErrorResponseDTO;

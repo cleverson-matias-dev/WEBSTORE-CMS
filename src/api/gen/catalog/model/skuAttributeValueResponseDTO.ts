@@ -6,9 +6,9 @@
  */
 
 export interface SkuAttributeValueResponseDTO {
-  id?: string;
-  sku_id?: string;
-  attribute_id?: string;
-  value?: string;
-  updated_at?: string;
+  id: string;
+  sku_id: string;
+  attribute_id: string;
+  value: string;
+  updated_at: string;
 }

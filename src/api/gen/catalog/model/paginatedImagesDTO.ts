@@ -7,7 +7,7 @@
 import type { ImageResponseDTO } from './imageResponseDTO';
 
 export interface PaginatedImagesDTO {
-  items?: ImageResponseDTO[];
-  total?: number;
-  page?: number;
+  items: ImageResponseDTO[];
+  total: number;
+  page: number;
 }

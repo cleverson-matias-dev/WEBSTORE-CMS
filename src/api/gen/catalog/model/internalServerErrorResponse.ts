@@ -7,6 +7,6 @@
 import type { ErrorResponseDTO } from './errorResponseDTO';
 
 /**
- * Erro interno do servidor
+ * Erro interno
  */
 export type InternalServerErrorResponse = ErrorResponseDTO;

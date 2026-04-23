@@ -28,8 +28,9 @@ import type {
   CreateSkuAttributeValueRequestDTO,
   ErrorResponseDTO,
   InternalServerErrorResponse,
-  PutCatalogApiV1SkuAttributeValuesIdBody,
-  SkuAttributeValueResponseDTO
+  NotFoundErrorResponse,
+  SkuAttributeValueResponseDTO,
+  UpdateSkuAttributeValueBody
 } from '../model';
 
 import { customInstance } from '../../../axios-instance';
@@ -42,7 +43,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 /**
  * @summary Associa um atributo a um SKU
  */
-export const postCatalogApiV1SkuAttributeValues = (
+export const createSkuAttributeValue = (
     createSkuAttributeValueRequestDTO: CreateSkuAttributeValueRequestDTO,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -58,11 +59,11 @@ export const postCatalogApiV1SkuAttributeValues = (
 
 
 
-export const getPostCatalogApiV1SkuAttributeValuesMutationOptions = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1SkuAttributeValues>>, TError,{data: CreateSkuAttributeValueRequestDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1SkuAttributeValues>>, TError,{data: CreateSkuAttributeValueRequestDTO}, TContext> => {
+export const getCreateSkuAttributeValueMutationOptions = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createSkuAttributeValue>>, TError,{data: CreateSkuAttributeValueRequestDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof createSkuAttributeValue>>, TError,{data: CreateSkuAttributeValueRequestDTO}, TContext> => {
 
-const mutationKey = ['postCatalogApiV1SkuAttributeValues'];
+const mutationKey = ['createSkuAttributeValue'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -72,10 +73,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postCatalogApiV1SkuAttributeValues>>, {data: CreateSkuAttributeValueRequestDTO}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createSkuAttributeValue>>, {data: CreateSkuAttributeValueRequestDTO}> = (props) => {
           const {data} = props ?? {};
 
-          return  postCatalogApiV1SkuAttributeValues(data,requestOptions)
+          return  createSkuAttributeValue(data,requestOptions)
         }
 
 
@@ -85,27 +86,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostCatalogApiV1SkuAttributeValuesMutationResult = NonNullable<Awaited<ReturnType<typeof postCatalogApiV1SkuAttributeValues>>>
-    export type PostCatalogApiV1SkuAttributeValuesMutationBody = CreateSkuAttributeValueRequestDTO
-    export type PostCatalogApiV1SkuAttributeValuesMutationError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse
+    export type CreateSkuAttributeValueMutationResult = NonNullable<Awaited<ReturnType<typeof createSkuAttributeValue>>>
+    export type CreateSkuAttributeValueMutationBody = CreateSkuAttributeValueRequestDTO
+    export type CreateSkuAttributeValueMutationError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse
 
     /**
  * @summary Associa um atributo a um SKU
  */
-export const usePostCatalogApiV1SkuAttributeValues = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1SkuAttributeValues>>, TError,{data: CreateSkuAttributeValueRequestDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useCreateSkuAttributeValue = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createSkuAttributeValue>>, TError,{data: CreateSkuAttributeValueRequestDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postCatalogApiV1SkuAttributeValues>>,
+        Awaited<ReturnType<typeof createSkuAttributeValue>>,
         TError,
         {data: CreateSkuAttributeValueRequestDTO},
         TContext
       > => {
-      return useMutation(getPostCatalogApiV1SkuAttributeValuesMutationOptions(options), queryClient);
+      return useMutation(getCreateSkuAttributeValueMutationOptions(options), queryClient);
     }
     /**
  * @summary Lista todos os atributos de um SKU específico
  */
-export const getCatalogApiV1SkuAttributeValuesSkuSkuId = (
+export const listSkuAttributeValuesBySku = (
     skuId: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -120,69 +121,69 @@ export const getCatalogApiV1SkuAttributeValuesSkuSkuId = (
 
 
 
-export const getGetCatalogApiV1SkuAttributeValuesSkuSkuIdQueryKey = (skuId: string,) => {
+export const getListSkuAttributeValuesBySkuQueryKey = (skuId: string,) => {
     return [
     `/catalog/api/v1/sku-attribute-values/sku/${skuId}`
     ] as const;
     }
 
 
-export const getGetCatalogApiV1SkuAttributeValuesSkuSkuIdQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getListSkuAttributeValuesBySkuQueryOptions = <TData = Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetCatalogApiV1SkuAttributeValuesSkuSkuIdQueryKey(skuId);
+  const queryKey =  queryOptions?.queryKey ?? getListSkuAttributeValuesBySkuQueryKey(skuId);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>> = ({ signal }) => getCatalogApiV1SkuAttributeValuesSkuSkuId(skuId, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>> = ({ signal }) => listSkuAttributeValuesBySku(skuId, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(skuId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(skuId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetCatalogApiV1SkuAttributeValuesSkuSkuIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>>
-export type GetCatalogApiV1SkuAttributeValuesSkuSkuIdQueryError = BadRequestErrorResponse | InternalServerErrorResponse
+export type ListSkuAttributeValuesBySkuQueryResult = NonNullable<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>>
+export type ListSkuAttributeValuesBySkuQueryError = BadRequestErrorResponse | InternalServerErrorResponse
 
 
-export function useGetCatalogApiV1SkuAttributeValuesSkuSkuId<TData = Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
- skuId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError, TData>> & Pick<
+export function useListSkuAttributeValuesBySku<TData = Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
+ skuId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>,
+          Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>
+          Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1SkuAttributeValuesSkuSkuId<TData = Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
- skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError, TData>> & Pick<
+export function useListSkuAttributeValuesBySku<TData = Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
+ skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>,
+          Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>
+          Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1SkuAttributeValuesSkuSkuId<TData = Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
- skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListSkuAttributeValuesBySku<TData = Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
+ skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Lista todos os atributos de um SKU específico
  */
 
-export function useGetCatalogApiV1SkuAttributeValuesSkuSkuId<TData = Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
- skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1SkuAttributeValuesSkuSkuId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListSkuAttributeValuesBySku<TData = Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError = BadRequestErrorResponse | InternalServerErrorResponse>(
+ skuId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkuAttributeValuesBySku>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetCatalogApiV1SkuAttributeValuesSkuSkuIdQueryOptions(skuId,options)
+  const queryOptions = getListSkuAttributeValuesBySkuQueryOptions(skuId,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -197,9 +198,9 @@ export function useGetCatalogApiV1SkuAttributeValuesSkuSkuId<TData = Awaited<Ret
 /**
  * @summary Atualiza o valor de um atributo de SKU
  */
-export const putCatalogApiV1SkuAttributeValuesId = (
+export const updateSkuAttributeValue = (
     id: string,
-    putCatalogApiV1SkuAttributeValuesIdBody: PutCatalogApiV1SkuAttributeValuesIdBody,
+    updateSkuAttributeValueBody: UpdateSkuAttributeValueBody,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -207,18 +208,18 @@ export const putCatalogApiV1SkuAttributeValuesId = (
       return customInstance<SkuAttributeValueResponseDTO>(
       {url: `/catalog/api/v1/sku-attribute-values/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
-      data: putCatalogApiV1SkuAttributeValuesIdBody, signal
+      data: updateSkuAttributeValueBody, signal
     },
       options);
     }
 
 
 
-export const getPutCatalogApiV1SkuAttributeValuesIdMutationOptions = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCatalogApiV1SkuAttributeValuesId>>, TError,{id: string;data: PutCatalogApiV1SkuAttributeValuesIdBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof putCatalogApiV1SkuAttributeValuesId>>, TError,{id: string;data: PutCatalogApiV1SkuAttributeValuesIdBody}, TContext> => {
+export const getUpdateSkuAttributeValueMutationOptions = <TError = NotFoundErrorResponse | InternalServerErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSkuAttributeValue>>, TError,{id: string;data: UpdateSkuAttributeValueBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateSkuAttributeValue>>, TError,{id: string;data: UpdateSkuAttributeValueBody}, TContext> => {
 
-const mutationKey = ['putCatalogApiV1SkuAttributeValuesId'];
+const mutationKey = ['updateSkuAttributeValue'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -228,10 +229,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putCatalogApiV1SkuAttributeValuesId>>, {id: string;data: PutCatalogApiV1SkuAttributeValuesIdBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSkuAttributeValue>>, {id: string;data: UpdateSkuAttributeValueBody}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  putCatalogApiV1SkuAttributeValuesId(id,data,requestOptions)
+          return  updateSkuAttributeValue(id,data,requestOptions)
         }
 
 
@@ -241,27 +242,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PutCatalogApiV1SkuAttributeValuesIdMutationResult = NonNullable<Awaited<ReturnType<typeof putCatalogApiV1SkuAttributeValuesId>>>
-    export type PutCatalogApiV1SkuAttributeValuesIdMutationBody = PutCatalogApiV1SkuAttributeValuesIdBody
-    export type PutCatalogApiV1SkuAttributeValuesIdMutationError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse
+    export type UpdateSkuAttributeValueMutationResult = NonNullable<Awaited<ReturnType<typeof updateSkuAttributeValue>>>
+    export type UpdateSkuAttributeValueMutationBody = UpdateSkuAttributeValueBody
+    export type UpdateSkuAttributeValueMutationError = NotFoundErrorResponse | InternalServerErrorResponse
 
     /**
  * @summary Atualiza o valor de um atributo de SKU
  */
-export const usePutCatalogApiV1SkuAttributeValuesId = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCatalogApiV1SkuAttributeValuesId>>, TError,{id: string;data: PutCatalogApiV1SkuAttributeValuesIdBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useUpdateSkuAttributeValue = <TError = NotFoundErrorResponse | InternalServerErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSkuAttributeValue>>, TError,{id: string;data: UpdateSkuAttributeValueBody}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof putCatalogApiV1SkuAttributeValuesId>>,
+        Awaited<ReturnType<typeof updateSkuAttributeValue>>,
         TError,
-        {id: string;data: PutCatalogApiV1SkuAttributeValuesIdBody},
+        {id: string;data: UpdateSkuAttributeValueBody},
         TContext
       > => {
-      return useMutation(getPutCatalogApiV1SkuAttributeValuesIdMutationOptions(options), queryClient);
+      return useMutation(getUpdateSkuAttributeValueMutationOptions(options), queryClient);
     }
     /**
- * @summary Remove a associação de um atributo com um SKU
+ * @summary Remove a associação de um atributo
  */
-export const deleteCatalogApiV1SkuAttributeValuesId = (
+export const deleteSkuAttributeValue = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -275,11 +276,11 @@ export const deleteCatalogApiV1SkuAttributeValuesId = (
 
 
 
-export const getDeleteCatalogApiV1SkuAttributeValuesIdMutationOptions = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1SkuAttributeValuesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1SkuAttributeValuesId>>, TError,{id: string}, TContext> => {
+export const getDeleteSkuAttributeValueMutationOptions = <TError = NotFoundErrorResponse | InternalServerErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSkuAttributeValue>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteSkuAttributeValue>>, TError,{id: string}, TContext> => {
 
-const mutationKey = ['deleteCatalogApiV1SkuAttributeValuesId'];
+const mutationKey = ['deleteSkuAttributeValue'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -289,10 +290,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCatalogApiV1SkuAttributeValuesId>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteSkuAttributeValue>>, {id: string}> = (props) => {
           const {id} = props ?? {};
 
-          return  deleteCatalogApiV1SkuAttributeValuesId(id,requestOptions)
+          return  deleteSkuAttributeValue(id,requestOptions)
         }
 
 
@@ -302,20 +303,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteCatalogApiV1SkuAttributeValuesIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCatalogApiV1SkuAttributeValuesId>>>
+    export type DeleteSkuAttributeValueMutationResult = NonNullable<Awaited<ReturnType<typeof deleteSkuAttributeValue>>>
 
-    export type DeleteCatalogApiV1SkuAttributeValuesIdMutationError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse
+    export type DeleteSkuAttributeValueMutationError = NotFoundErrorResponse | InternalServerErrorResponse
 
     /**
- * @summary Remove a associação de um atributo com um SKU
+ * @summary Remove a associação de um atributo
  */
-export const useDeleteCatalogApiV1SkuAttributeValuesId = <TError = BadRequestErrorResponse | ErrorResponseDTO | InternalServerErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1SkuAttributeValuesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useDeleteSkuAttributeValue = <TError = NotFoundErrorResponse | InternalServerErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSkuAttributeValue>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteCatalogApiV1SkuAttributeValuesId>>,
+        Awaited<ReturnType<typeof deleteSkuAttributeValue>>,
         TError,
         {id: string},
         TContext
       > => {
-      return useMutation(getDeleteCatalogApiV1SkuAttributeValuesIdMutationOptions(options), queryClient);
+      return useMutation(getDeleteSkuAttributeValueMutationOptions(options), queryClient);
     }

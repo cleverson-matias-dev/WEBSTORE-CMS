@@ -27,9 +27,9 @@ import type {
   BadRequestResponse,
   CreateImageDTO,
   ErrorResponseDTO,
-  GetCatalogApiV1ImagesParams,
   ImageResponseDTO,
   InternalErrorResponse,
+  ListImagesParams,
   NotFoundResponse,
   PaginatedImagesDTO,
   UpdateImageDTO
@@ -45,7 +45,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 /**
  * @summary Criar nova imagem
  */
-export const postCatalogApiV1Images = (
+export const createImage = (
     createImageDTO: CreateImageDTO,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -61,11 +61,11 @@ export const postCatalogApiV1Images = (
 
 
 
-export const getPostCatalogApiV1ImagesMutationOptions = <TError = BadRequestResponse | NotFoundResponse | ErrorResponseDTO | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Images>>, TError,{data: CreateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Images>>, TError,{data: CreateImageDTO}, TContext> => {
+export const getCreateImageMutationOptions = <TError = BadRequestResponse | NotFoundResponse | ErrorResponseDTO | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createImage>>, TError,{data: CreateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof createImage>>, TError,{data: CreateImageDTO}, TContext> => {
 
-const mutationKey = ['postCatalogApiV1Images'];
+const mutationKey = ['createImage'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -75,10 +75,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postCatalogApiV1Images>>, {data: CreateImageDTO}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createImage>>, {data: CreateImageDTO}> = (props) => {
           const {data} = props ?? {};
 
-          return  postCatalogApiV1Images(data,requestOptions)
+          return  createImage(data,requestOptions)
         }
 
 
@@ -88,28 +88,28 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostCatalogApiV1ImagesMutationResult = NonNullable<Awaited<ReturnType<typeof postCatalogApiV1Images>>>
-    export type PostCatalogApiV1ImagesMutationBody = CreateImageDTO
-    export type PostCatalogApiV1ImagesMutationError = BadRequestResponse | NotFoundResponse | ErrorResponseDTO | InternalErrorResponse
+    export type CreateImageMutationResult = NonNullable<Awaited<ReturnType<typeof createImage>>>
+    export type CreateImageMutationBody = CreateImageDTO
+    export type CreateImageMutationError = BadRequestResponse | NotFoundResponse | ErrorResponseDTO | InternalErrorResponse
 
     /**
  * @summary Criar nova imagem
  */
-export const usePostCatalogApiV1Images = <TError = BadRequestResponse | NotFoundResponse | ErrorResponseDTO | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Images>>, TError,{data: CreateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useCreateImage = <TError = BadRequestResponse | NotFoundResponse | ErrorResponseDTO | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createImage>>, TError,{data: CreateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postCatalogApiV1Images>>,
+        Awaited<ReturnType<typeof createImage>>,
         TError,
         {data: CreateImageDTO},
         TContext
       > => {
-      return useMutation(getPostCatalogApiV1ImagesMutationOptions(options), queryClient);
+      return useMutation(getCreateImageMutationOptions(options), queryClient);
     }
     /**
  * @summary Listar imagens paginadas
  */
-export const getCatalogApiV1Images = (
-    params?: GetCatalogApiV1ImagesParams,
+export const listImages = (
+    params?: ListImagesParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -124,69 +124,69 @@ export const getCatalogApiV1Images = (
 
 
 
-export const getGetCatalogApiV1ImagesQueryKey = (params?: GetCatalogApiV1ImagesParams,) => {
+export const getListImagesQueryKey = (params?: ListImagesParams,) => {
     return [
     `/catalog/api/v1/images`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getGetCatalogApiV1ImagesQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError = BadRequestResponse | InternalErrorResponse>(params?: GetCatalogApiV1ImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getListImagesQueryOptions = <TData = Awaited<ReturnType<typeof listImages>>, TError = BadRequestResponse | InternalErrorResponse>(params?: ListImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listImages>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetCatalogApiV1ImagesQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getListImagesQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogApiV1Images>>> = ({ signal }) => getCatalogApiV1Images(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listImages>>> = ({ signal }) => listImages(params, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listImages>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetCatalogApiV1ImagesQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogApiV1Images>>>
-export type GetCatalogApiV1ImagesQueryError = BadRequestResponse | InternalErrorResponse
+export type ListImagesQueryResult = NonNullable<Awaited<ReturnType<typeof listImages>>>
+export type ListImagesQueryError = BadRequestResponse | InternalErrorResponse
 
 
-export function useGetCatalogApiV1Images<TData = Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError = BadRequestResponse | InternalErrorResponse>(
- params: undefined |  GetCatalogApiV1ImagesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError, TData>> & Pick<
+export function useListImages<TData = Awaited<ReturnType<typeof listImages>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params: undefined |  ListImagesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listImages>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1Images>>,
+          Awaited<ReturnType<typeof listImages>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1Images>>
+          Awaited<ReturnType<typeof listImages>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1Images<TData = Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError = BadRequestResponse | InternalErrorResponse>(
- params?: GetCatalogApiV1ImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError, TData>> & Pick<
+export function useListImages<TData = Awaited<ReturnType<typeof listImages>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params?: ListImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listImages>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1Images>>,
+          Awaited<ReturnType<typeof listImages>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1Images>>
+          Awaited<ReturnType<typeof listImages>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1Images<TData = Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError = BadRequestResponse | InternalErrorResponse>(
- params?: GetCatalogApiV1ImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListImages<TData = Awaited<ReturnType<typeof listImages>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params?: ListImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listImages>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Listar imagens paginadas
  */
 
-export function useGetCatalogApiV1Images<TData = Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError = BadRequestResponse | InternalErrorResponse>(
- params?: GetCatalogApiV1ImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Images>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListImages<TData = Awaited<ReturnType<typeof listImages>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params?: ListImagesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listImages>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetCatalogApiV1ImagesQueryOptions(params,options)
+  const queryOptions = getListImagesQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -201,7 +201,7 @@ export function useGetCatalogApiV1Images<TData = Awaited<ReturnType<typeof getCa
 /**
  * @summary Buscar imagem por ID
  */
-export const getCatalogApiV1ImagesId = (
+export const getImageById = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -216,69 +216,69 @@ export const getCatalogApiV1ImagesId = (
 
 
 
-export const getGetCatalogApiV1ImagesIdQueryKey = (id: string,) => {
+export const getGetImageByIdQueryKey = (id: string,) => {
     return [
     `/catalog/api/v1/images/${id}`
     ] as const;
     }
 
 
-export const getGetCatalogApiV1ImagesIdQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetImageByIdQueryOptions = <TData = Awaited<ReturnType<typeof getImageById>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImageById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetCatalogApiV1ImagesIdQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getGetImageByIdQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>> = ({ signal }) => getCatalogApiV1ImagesId(id, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getImageById>>> = ({ signal }) => getImageById(id, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getImageById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetCatalogApiV1ImagesIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>>
-export type GetCatalogApiV1ImagesIdQueryError = BadRequestResponse | NotFoundResponse | InternalErrorResponse
+export type GetImageByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getImageById>>>
+export type GetImageByIdQueryError = BadRequestResponse | NotFoundResponse | InternalErrorResponse
 
 
-export function useGetCatalogApiV1ImagesId<TData = Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
- id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError, TData>> & Pick<
+export function useGetImageById<TData = Awaited<ReturnType<typeof getImageById>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImageById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>,
+          Awaited<ReturnType<typeof getImageById>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>
+          Awaited<ReturnType<typeof getImageById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1ImagesId<TData = Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError, TData>> & Pick<
+export function useGetImageById<TData = Awaited<ReturnType<typeof getImageById>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImageById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>,
+          Awaited<ReturnType<typeof getImageById>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>
+          Awaited<ReturnType<typeof getImageById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1ImagesId<TData = Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetImageById<TData = Awaited<ReturnType<typeof getImageById>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImageById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Buscar imagem por ID
  */
 
-export function useGetCatalogApiV1ImagesId<TData = Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1ImagesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetImageById<TData = Awaited<ReturnType<typeof getImageById>>, TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImageById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetCatalogApiV1ImagesIdQueryOptions(id,options)
+  const queryOptions = getGetImageByIdQueryOptions(id,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -293,7 +293,7 @@ export function useGetCatalogApiV1ImagesId<TData = Awaited<ReturnType<typeof get
 /**
  * @summary Atualizar imagem
  */
-export const putCatalogApiV1ImagesId = (
+export const updateImage = (
     id: string,
     updateImageDTO: UpdateImageDTO,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
@@ -310,11 +310,11 @@ export const putCatalogApiV1ImagesId = (
 
 
 
-export const getPutCatalogApiV1ImagesIdMutationOptions = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCatalogApiV1ImagesId>>, TError,{id: string;data: UpdateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof putCatalogApiV1ImagesId>>, TError,{id: string;data: UpdateImageDTO}, TContext> => {
+export const getUpdateImageMutationOptions = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateImage>>, TError,{id: string;data: UpdateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateImage>>, TError,{id: string;data: UpdateImageDTO}, TContext> => {
 
-const mutationKey = ['putCatalogApiV1ImagesId'];
+const mutationKey = ['updateImage'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -324,10 +324,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putCatalogApiV1ImagesId>>, {id: string;data: UpdateImageDTO}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateImage>>, {id: string;data: UpdateImageDTO}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  putCatalogApiV1ImagesId(id,data,requestOptions)
+          return  updateImage(id,data,requestOptions)
         }
 
 
@@ -337,27 +337,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PutCatalogApiV1ImagesIdMutationResult = NonNullable<Awaited<ReturnType<typeof putCatalogApiV1ImagesId>>>
-    export type PutCatalogApiV1ImagesIdMutationBody = UpdateImageDTO
-    export type PutCatalogApiV1ImagesIdMutationError = BadRequestResponse | NotFoundResponse | InternalErrorResponse
+    export type UpdateImageMutationResult = NonNullable<Awaited<ReturnType<typeof updateImage>>>
+    export type UpdateImageMutationBody = UpdateImageDTO
+    export type UpdateImageMutationError = BadRequestResponse | NotFoundResponse | InternalErrorResponse
 
     /**
  * @summary Atualizar imagem
  */
-export const usePutCatalogApiV1ImagesId = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCatalogApiV1ImagesId>>, TError,{id: string;data: UpdateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useUpdateImage = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateImage>>, TError,{id: string;data: UpdateImageDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof putCatalogApiV1ImagesId>>,
+        Awaited<ReturnType<typeof updateImage>>,
         TError,
         {id: string;data: UpdateImageDTO},
         TContext
       > => {
-      return useMutation(getPutCatalogApiV1ImagesIdMutationOptions(options), queryClient);
+      return useMutation(getUpdateImageMutationOptions(options), queryClient);
     }
     /**
  * @summary Deletar imagem
  */
-export const deleteCatalogApiV1ImagesId = (
+export const deleteImage = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -371,11 +371,11 @@ export const deleteCatalogApiV1ImagesId = (
 
 
 
-export const getDeleteCatalogApiV1ImagesIdMutationOptions = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1ImagesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1ImagesId>>, TError,{id: string}, TContext> => {
+export const getDeleteImageMutationOptions = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteImage>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteImage>>, TError,{id: string}, TContext> => {
 
-const mutationKey = ['deleteCatalogApiV1ImagesId'];
+const mutationKey = ['deleteImage'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -385,10 +385,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCatalogApiV1ImagesId>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteImage>>, {id: string}> = (props) => {
           const {id} = props ?? {};
 
-          return  deleteCatalogApiV1ImagesId(id,requestOptions)
+          return  deleteImage(id,requestOptions)
         }
 
 
@@ -398,20 +398,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteCatalogApiV1ImagesIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCatalogApiV1ImagesId>>>
+    export type DeleteImageMutationResult = NonNullable<Awaited<ReturnType<typeof deleteImage>>>
 
-    export type DeleteCatalogApiV1ImagesIdMutationError = BadRequestResponse | NotFoundResponse | InternalErrorResponse
+    export type DeleteImageMutationError = BadRequestResponse | NotFoundResponse | InternalErrorResponse
 
     /**
  * @summary Deletar imagem
  */
-export const useDeleteCatalogApiV1ImagesId = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1ImagesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useDeleteImage = <TError = BadRequestResponse | NotFoundResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteImage>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteCatalogApiV1ImagesId>>,
+        Awaited<ReturnType<typeof deleteImage>>,
         TError,
         {id: string},
         TContext
       > => {
-      return useMutation(getDeleteCatalogApiV1ImagesIdMutationOptions(options), queryClient);
+      return useMutation(getDeleteImageMutationOptions(options), queryClient);
     }

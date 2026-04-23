@@ -4,11 +4,11 @@
  * [Catalog] Store Api
  * OpenAPI spec version: 1.0.0
  */
-import type { ProductOutput } from './productOutput';
+import type { ProductOutputDTO } from './productOutputDTO';
 
 export interface PagedProductOutput {
-  items?: ProductOutput[];
-  total?: number;
-  page?: number;
-  limit?: number;
+  items: ProductOutputDTO[];
+  total: number;
+  page: number;
+  limit: number;
 }

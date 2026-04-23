@@ -28,10 +28,11 @@ import type {
   CategoryDTO,
   CreateCategoryDTO,
   ErrorResponseDTO,
-  GetCatalogApiV1CategoriesParams,
   InternalErrorResponse,
+  ListCategoriesParams,
+  NotFoundErrorResponse,
   PaginatedCategoriesDTO,
-  PatchCatalogApiV1CategoriesIdBody
+  UpdateCategoryBody
 } from '../model';
 
 import { customInstance } from '../../../axios-instance';
@@ -44,8 +45,8 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 /**
  * @summary Lista categorias paginadas
  */
-export const getCatalogApiV1Categories = (
-    params?: GetCatalogApiV1CategoriesParams,
+export const listCategories = (
+    params?: ListCategoriesParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -60,69 +61,69 @@ export const getCatalogApiV1Categories = (
 
 
 
-export const getGetCatalogApiV1CategoriesQueryKey = (params?: GetCatalogApiV1CategoriesParams,) => {
+export const getListCategoriesQueryKey = (params?: ListCategoriesParams,) => {
     return [
     `/catalog/api/v1/categories`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getGetCatalogApiV1CategoriesQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError = BadRequestResponse | InternalErrorResponse>(params?: GetCatalogApiV1CategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getListCategoriesQueryOptions = <TData = Awaited<ReturnType<typeof listCategories>>, TError = BadRequestResponse | InternalErrorResponse>(params?: ListCategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCategories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetCatalogApiV1CategoriesQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getListCategoriesQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogApiV1Categories>>> = ({ signal }) => getCatalogApiV1Categories(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCategories>>> = ({ signal }) => listCategories(params, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCategories>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetCatalogApiV1CategoriesQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogApiV1Categories>>>
-export type GetCatalogApiV1CategoriesQueryError = BadRequestResponse | InternalErrorResponse
+export type ListCategoriesQueryResult = NonNullable<Awaited<ReturnType<typeof listCategories>>>
+export type ListCategoriesQueryError = BadRequestResponse | InternalErrorResponse
 
 
-export function useGetCatalogApiV1Categories<TData = Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError = BadRequestResponse | InternalErrorResponse>(
- params: undefined |  GetCatalogApiV1CategoriesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError, TData>> & Pick<
+export function useListCategories<TData = Awaited<ReturnType<typeof listCategories>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params: undefined |  ListCategoriesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCategories>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1Categories>>,
+          Awaited<ReturnType<typeof listCategories>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1Categories>>
+          Awaited<ReturnType<typeof listCategories>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1Categories<TData = Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError = BadRequestResponse | InternalErrorResponse>(
- params?: GetCatalogApiV1CategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError, TData>> & Pick<
+export function useListCategories<TData = Awaited<ReturnType<typeof listCategories>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params?: ListCategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCategories>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1Categories>>,
+          Awaited<ReturnType<typeof listCategories>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1Categories>>
+          Awaited<ReturnType<typeof listCategories>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1Categories<TData = Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError = BadRequestResponse | InternalErrorResponse>(
- params?: GetCatalogApiV1CategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListCategories<TData = Awaited<ReturnType<typeof listCategories>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params?: ListCategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCategories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Lista categorias paginadas
  */
 
-export function useGetCatalogApiV1Categories<TData = Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError = BadRequestResponse | InternalErrorResponse>(
- params?: GetCatalogApiV1CategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Categories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListCategories<TData = Awaited<ReturnType<typeof listCategories>>, TError = BadRequestResponse | InternalErrorResponse>(
+ params?: ListCategoriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listCategories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetCatalogApiV1CategoriesQueryOptions(params,options)
+  const queryOptions = getListCategoriesQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -137,7 +138,7 @@ export function useGetCatalogApiV1Categories<TData = Awaited<ReturnType<typeof g
 /**
  * @summary Cria uma nova categoria
  */
-export const postCatalogApiV1Categories = (
+export const createCategory = (
     createCategoryDTO: CreateCategoryDTO,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -153,11 +154,11 @@ export const postCatalogApiV1Categories = (
 
 
 
-export const getPostCatalogApiV1CategoriesMutationOptions = <TError = BadRequestResponse | ErrorResponseDTO | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Categories>>, TError,{data: CreateCategoryDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Categories>>, TError,{data: CreateCategoryDTO}, TContext> => {
+export const getCreateCategoryMutationOptions = <TError = BadRequestResponse | ErrorResponseDTO | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCategory>>, TError,{data: CreateCategoryDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof createCategory>>, TError,{data: CreateCategoryDTO}, TContext> => {
 
-const mutationKey = ['postCatalogApiV1Categories'];
+const mutationKey = ['createCategory'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -167,10 +168,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postCatalogApiV1Categories>>, {data: CreateCategoryDTO}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createCategory>>, {data: CreateCategoryDTO}> = (props) => {
           const {data} = props ?? {};
 
-          return  postCatalogApiV1Categories(data,requestOptions)
+          return  createCategory(data,requestOptions)
         }
 
 
@@ -180,27 +181,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostCatalogApiV1CategoriesMutationResult = NonNullable<Awaited<ReturnType<typeof postCatalogApiV1Categories>>>
-    export type PostCatalogApiV1CategoriesMutationBody = CreateCategoryDTO
-    export type PostCatalogApiV1CategoriesMutationError = BadRequestResponse | ErrorResponseDTO | InternalErrorResponse
+    export type CreateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof createCategory>>>
+    export type CreateCategoryMutationBody = CreateCategoryDTO
+    export type CreateCategoryMutationError = BadRequestResponse | ErrorResponseDTO | InternalErrorResponse
 
     /**
  * @summary Cria uma nova categoria
  */
-export const usePostCatalogApiV1Categories = <TError = BadRequestResponse | ErrorResponseDTO | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Categories>>, TError,{data: CreateCategoryDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useCreateCategory = <TError = BadRequestResponse | ErrorResponseDTO | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCategory>>, TError,{data: CreateCategoryDTO}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postCatalogApiV1Categories>>,
+        Awaited<ReturnType<typeof createCategory>>,
         TError,
         {data: CreateCategoryDTO},
         TContext
       > => {
-      return useMutation(getPostCatalogApiV1CategoriesMutationOptions(options), queryClient);
+      return useMutation(getCreateCategoryMutationOptions(options), queryClient);
     }
     /**
  * @summary Busca categoria por ID
  */
-export const getCatalogApiV1CategoriesId = (
+export const getCategoryById = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -215,69 +216,69 @@ export const getCatalogApiV1CategoriesId = (
 
 
 
-export const getGetCatalogApiV1CategoriesIdQueryKey = (id: string,) => {
+export const getGetCategoryByIdQueryKey = (id: string,) => {
     return [
     `/catalog/api/v1/categories/${id}`
     ] as const;
     }
 
 
-export const getGetCatalogApiV1CategoriesIdQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError = void | InternalErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetCategoryByIdQueryOptions = <TData = Awaited<ReturnType<typeof getCategoryById>>, TError = NotFoundErrorResponse | InternalErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCategoryById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetCatalogApiV1CategoriesIdQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getGetCategoryByIdQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>> = ({ signal }) => getCatalogApiV1CategoriesId(id, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCategoryById>>> = ({ signal }) => getCategoryById(id, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCategoryById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetCatalogApiV1CategoriesIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>>
-export type GetCatalogApiV1CategoriesIdQueryError = void | InternalErrorResponse
+export type GetCategoryByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCategoryById>>>
+export type GetCategoryByIdQueryError = NotFoundErrorResponse | InternalErrorResponse
 
 
-export function useGetCatalogApiV1CategoriesId<TData = Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError = void | InternalErrorResponse>(
- id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError, TData>> & Pick<
+export function useGetCategoryById<TData = Awaited<ReturnType<typeof getCategoryById>>, TError = NotFoundErrorResponse | InternalErrorResponse>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCategoryById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>,
+          Awaited<ReturnType<typeof getCategoryById>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>
+          Awaited<ReturnType<typeof getCategoryById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1CategoriesId<TData = Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError = void | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError, TData>> & Pick<
+export function useGetCategoryById<TData = Awaited<ReturnType<typeof getCategoryById>>, TError = NotFoundErrorResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCategoryById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>,
+          Awaited<ReturnType<typeof getCategoryById>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>
+          Awaited<ReturnType<typeof getCategoryById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1CategoriesId<TData = Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError = void | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetCategoryById<TData = Awaited<ReturnType<typeof getCategoryById>>, TError = NotFoundErrorResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCategoryById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Busca categoria por ID
  */
 
-export function useGetCatalogApiV1CategoriesId<TData = Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError = void | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1CategoriesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetCategoryById<TData = Awaited<ReturnType<typeof getCategoryById>>, TError = NotFoundErrorResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCategoryById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetCatalogApiV1CategoriesIdQueryOptions(id,options)
+  const queryOptions = getGetCategoryByIdQueryOptions(id,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -292,9 +293,9 @@ export function useGetCatalogApiV1CategoriesId<TData = Awaited<ReturnType<typeof
 /**
  * @summary Atualiza nome de uma categoria
  */
-export const patchCatalogApiV1CategoriesId = (
+export const updateCategory = (
     id: string,
-    patchCatalogApiV1CategoriesIdBody: PatchCatalogApiV1CategoriesIdBody,
+    updateCategoryBody: UpdateCategoryBody,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -302,18 +303,18 @@ export const patchCatalogApiV1CategoriesId = (
       return customInstance<void>(
       {url: `/catalog/api/v1/categories/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: patchCatalogApiV1CategoriesIdBody, signal
+      data: updateCategoryBody, signal
     },
       options);
     }
 
 
 
-export const getPatchCatalogApiV1CategoriesIdMutationOptions = <TError = BadRequestResponse | void | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchCatalogApiV1CategoriesId>>, TError,{id: string;data: PatchCatalogApiV1CategoriesIdBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchCatalogApiV1CategoriesId>>, TError,{id: string;data: PatchCatalogApiV1CategoriesIdBody}, TContext> => {
+export const getUpdateCategoryMutationOptions = <TError = BadRequestResponse | NotFoundErrorResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCategory>>, TError,{id: string;data: UpdateCategoryBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateCategory>>, TError,{id: string;data: UpdateCategoryBody}, TContext> => {
 
-const mutationKey = ['patchCatalogApiV1CategoriesId'];
+const mutationKey = ['updateCategory'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -323,10 +324,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchCatalogApiV1CategoriesId>>, {id: string;data: PatchCatalogApiV1CategoriesIdBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCategory>>, {id: string;data: UpdateCategoryBody}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  patchCatalogApiV1CategoriesId(id,data,requestOptions)
+          return  updateCategory(id,data,requestOptions)
         }
 
 
@@ -336,27 +337,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PatchCatalogApiV1CategoriesIdMutationResult = NonNullable<Awaited<ReturnType<typeof patchCatalogApiV1CategoriesId>>>
-    export type PatchCatalogApiV1CategoriesIdMutationBody = PatchCatalogApiV1CategoriesIdBody
-    export type PatchCatalogApiV1CategoriesIdMutationError = BadRequestResponse | void | InternalErrorResponse
+    export type UpdateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof updateCategory>>>
+    export type UpdateCategoryMutationBody = UpdateCategoryBody
+    export type UpdateCategoryMutationError = BadRequestResponse | NotFoundErrorResponse | InternalErrorResponse
 
     /**
  * @summary Atualiza nome de uma categoria
  */
-export const usePatchCatalogApiV1CategoriesId = <TError = BadRequestResponse | void | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchCatalogApiV1CategoriesId>>, TError,{id: string;data: PatchCatalogApiV1CategoriesIdBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useUpdateCategory = <TError = BadRequestResponse | NotFoundErrorResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCategory>>, TError,{id: string;data: UpdateCategoryBody}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof patchCatalogApiV1CategoriesId>>,
+        Awaited<ReturnType<typeof updateCategory>>,
         TError,
-        {id: string;data: PatchCatalogApiV1CategoriesIdBody},
+        {id: string;data: UpdateCategoryBody},
         TContext
       > => {
-      return useMutation(getPatchCatalogApiV1CategoriesIdMutationOptions(options), queryClient);
+      return useMutation(getUpdateCategoryMutationOptions(options), queryClient);
     }
     /**
  * @summary Remove uma categoria
  */
-export const deleteCatalogApiV1CategoriesId = (
+export const deleteCategory = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -370,11 +371,11 @@ export const deleteCatalogApiV1CategoriesId = (
 
 
 
-export const getDeleteCatalogApiV1CategoriesIdMutationOptions = <TError = void | ErrorResponseDTO | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1CategoriesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1CategoriesId>>, TError,{id: string}, TContext> => {
+export const getDeleteCategoryMutationOptions = <TError = NotFoundErrorResponse | ErrorResponseDTO | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCategory>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteCategory>>, TError,{id: string}, TContext> => {
 
-const mutationKey = ['deleteCatalogApiV1CategoriesId'];
+const mutationKey = ['deleteCategory'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -384,10 +385,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCatalogApiV1CategoriesId>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCategory>>, {id: string}> = (props) => {
           const {id} = props ?? {};
 
-          return  deleteCatalogApiV1CategoriesId(id,requestOptions)
+          return  deleteCategory(id,requestOptions)
         }
 
 
@@ -397,20 +398,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteCatalogApiV1CategoriesIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCatalogApiV1CategoriesId>>>
+    export type DeleteCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCategory>>>
 
-    export type DeleteCatalogApiV1CategoriesIdMutationError = void | ErrorResponseDTO | InternalErrorResponse
+    export type DeleteCategoryMutationError = NotFoundErrorResponse | ErrorResponseDTO | InternalErrorResponse
 
     /**
  * @summary Remove uma categoria
  */
-export const useDeleteCatalogApiV1CategoriesId = <TError = void | ErrorResponseDTO | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1CategoriesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useDeleteCategory = <TError = NotFoundErrorResponse | ErrorResponseDTO | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCategory>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteCatalogApiV1CategoriesId>>,
+        Awaited<ReturnType<typeof deleteCategory>>,
         TError,
         {id: string},
         TContext
       > => {
-      return useMutation(getDeleteCatalogApiV1CategoriesIdMutationOptions(options), queryClient);
+      return useMutation(getDeleteCategoryMutationOptions(options), queryClient);
     }

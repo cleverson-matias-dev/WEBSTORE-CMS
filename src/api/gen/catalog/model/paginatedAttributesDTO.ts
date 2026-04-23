@@ -7,8 +7,8 @@
 import type { AttributeDTO } from './attributeDTO';
 
 export interface PaginatedAttributesDTO {
-  items?: AttributeDTO[];
-  total?: number;
-  page?: number;
-  limit?: number;
+  items: AttributeDTO[];
+  total: number;
+  page: number;
+  limit: number;
 }

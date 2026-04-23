@@ -6,11 +6,11 @@
  */
 
 export interface CategoryDTO {
-  id?: string;
-  name?: string;
-  slug?: string;
+  id: string;
+  name: string;
+  slug: string;
   /** @nullable */
   parent_id?: string | null;
-  created_at?: string;
-  updated_at?: string;
+  created_at: string;
+  updated_at: string;
 }

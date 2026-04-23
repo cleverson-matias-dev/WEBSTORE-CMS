@@ -5,7 +5,10 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface UpdateImageDTO {
-  url: string;
-  ordem: number;
-}
+export type ListProductsParams = {
+page?: number;
+limit?: number;
+name?: string;
+slug?: string;
+description?: string;
+};

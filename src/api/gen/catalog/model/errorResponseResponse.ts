@@ -7,6 +7,6 @@
 import type { ErrorResponseDTO } from './errorResponseDTO';
 
 /**
- * Erro de validação ou requisição inválida.
+ * Erro de validação
  */
 export type ErrorResponseResponse = ErrorResponseDTO;

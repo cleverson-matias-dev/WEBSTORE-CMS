@@ -5,7 +5,10 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface UpdateImageDTO {
-  url: string;
-  ordem: number;
-}
+export type CreateAttributeBody = {
+  /**
+     * @minLength 3
+     * @maxLength 100
+     */
+  name: string;
+};

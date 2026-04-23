@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,57 +10,18 @@ import { Label } from "@/components/ui/label";
 import { MoreHorizontal, Plus, Filter, Download, ArrowUpDown, Search } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { ProductOutputDTO } from "@/api/gen/catalog/model";
+import { useListProducts } from "@/api/gen/catalog/produtos/produtos";
 
-interface SKU {
-  id: string;
-  sku_code: string;
-  price: number;
-  stock: number;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  status: string;
-  image: string;
-  skus: SKU[];
-}
-
-const products: Product[] = [
-  {
-    id: "1",
-    name: "Camiseta Oversized Cotton",
-    category: "Roupas",
-    status: "Ativo",
-    image: "https://placehold.co",
-    skus: [
-      { id: "s1", sku_code: "TSH-001-P", price: 89.9, stock: 50 },
-      { id: "s2", sku_code: "TSH-001-M", price: 89.9, stock: 74 },
-    ],
-  },
-  {
-    id: "2",
-    name: "Tênis Runner Pro",
-    category: "Calçados",
-    status: "Baixo Estoque",
-    image: "https://placehold.co",
-    skus: [
-      { id: "s3", sku_code: "SNK-992-42", price: 459.0, stock: 12 },
-    ],
-  },
-];
 
 export default function ProductsListing() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [editingProduct, setEditingProduct] = useState<ProductOutputDTO | null>(null);
 
-  // Simulação de carregamento para demonstração do layout
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  const {data: products, error, isLoading } = useListProducts();
+
+  if(error) return <>erro!!!</>
+  if(isLoading) return <>isLoading</>
 
   return (
     <div className="p-6 space-y-6 bg-slate-50 min-h-screen">
@@ -109,9 +70,13 @@ export default function ProductsListing() {
                 <TableHead className="w-12.5">
                   <Checkbox 
                     onCheckedChange={(checked) => {
-                      if (checked) setSelectedItems(products.map((p) => p.id));
-                      else setSelectedItems([]);
+                      if (checked && products?.items) {
+                        setSelectedItems(products.items.map((p) => p.id as string));
+                      } else {
+                        setSelectedItems([]);
+                      }
                     }} 
+                    checked={products?.items && selectedItems.length === products.items.length}
                   />
                 </TableHead>
                 <TableHead className="w-20">Imagem</TableHead>
@@ -134,10 +99,10 @@ export default function ProductsListing() {
                   <TableSkeleton key={index} />
                 ))
               ) : (
-                products.map((product) => {
-                  const firstSku = product.skus[0];
+                products?.items?.map((product) => {
+                  const firstSku = product.skus[0]
                   const totalVariants = product.skus.length;
-                  const totalStock = product.skus.reduce((acc, curr) => acc + curr.stock, 0);
+                  const totalStock = product.skus.reduce((acc, curr) => acc + curr.quantity, 0);
 
                   return (
                     <TableRow key={product.id} className="hover:bg-slate-50/50 transition-colors">
@@ -152,7 +117,7 @@ export default function ProductsListing() {
                         />
                       </TableCell>
                       <TableCell>
-                        <img src={product.image} alt={product.name} className="w-10 h-10 rounded-md border object-cover" />
+                        <img src={product?.images[0]?.url} alt={product.name} className="w-10 h-10 rounded-md border object-cover" />
                       </TableCell>
                       <TableCell 
                         className="font-medium text-slate-900 cursor-pointer hover:underline"
@@ -174,7 +139,7 @@ export default function ProductsListing() {
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline" className="font-normal text-slate-600">
-                          {product.category}
+                          {product.category.name}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -188,7 +153,7 @@ export default function ProductsListing() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <StatusBadge status={product.status} />
+                        <StatusBadge status="ativo" />
                       </TableCell>
                       <TableCell className="text-right">
                         <DropdownMenu>
@@ -220,7 +185,7 @@ export default function ProductsListing() {
           {isLoading ? (
              <Skeleton className="h-4 w-40" />
           ) : (
-            `Mostrando ${products.length} de 450 produtos`
+            `Mostrando ${products?.items.length} de 450 produtos`
           )}
           <div className="flex gap-2">
             <Button variant="outline" size="sm" disabled>Anterior</Button>
@@ -243,7 +208,7 @@ export default function ProductsListing() {
             {editingProduct?.skus.map((sku) => (
               <div key={sku.id} className="p-4 border rounded-xl bg-slate-50/50 space-y-4">
                 <div className="flex justify-between items-center">
-                  <Badge variant="secondary" className="font-mono text-[10px]">{sku.sku_code}</Badge>
+                  <Badge variant="secondary" className="font-mono text-[10px]">{sku?.sku_code}</Badge>
                   <span className="text-[10px] text-muted-foreground uppercase">ID: {sku.id}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -253,7 +218,7 @@ export default function ProductsListing() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor={`stock-${sku.id}`} className="text-xs">Estoque</Label>
-                    <Input id={`stock-${sku.id}`} type="number" defaultValue={sku.stock} className="bg-white" />
+                    <Input id={`stock-${sku.id}`} type="number" defaultValue={sku.quantity} className="bg-white" />
                   </div>
                 </div>
               </div>

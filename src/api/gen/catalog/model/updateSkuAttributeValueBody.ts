@@ -5,7 +5,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface UpdateImageDTO {
-  url: string;
-  ordem: number;
-}
+export type UpdateSkuAttributeValueBody = {
+  new_value: string;
+};

@@ -4,9 +4,12 @@
  * [Catalog] Store Api
  * OpenAPI spec version: 1.0.0
  */
-import type { ErrorResponseDTO } from './errorResponseDTO';
 
+export type ListAttributesParams = {
 /**
- * Erro interno
+ * Filtro parcial pelo nome do atributo
  */
-export type Error500Response = ErrorResponseDTO;
+name?: string;
+page?: number;
+limit?: number;
+};

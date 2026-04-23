@@ -5,10 +5,11 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface ImageResponseDTO {
+export interface SkuDTO {
   id: string;
-  product_id: string;
-  url: string;
-  ordem: number;
-  created_at: string;
+  product_id?: string;
+  sku_code: string;
+  quantity: number;
+  price: number;
+  currency?: string;
 }

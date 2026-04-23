@@ -25,14 +25,14 @@ import type {
 
 import type {
   AttributeDTO,
+  CreateAttributeBody,
   Error400Response,
   Error404Response,
   Error500Response,
   ErrorResponseDTO,
-  GetCatalogApiV1AttributesParams,
+  ListAttributesParams,
   PaginatedAttributesDTO,
-  PatchCatalogApiV1AttributesIdBody,
-  PostCatalogApiV1AttributesBody
+  UpdateAttributeBody
 } from '../model';
 
 import { customInstance } from '../../../axios-instance';
@@ -45,8 +45,8 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 /**
  * @summary Listar atributos com paginação e filtro
  */
-export const getCatalogApiV1Attributes = (
-    params?: GetCatalogApiV1AttributesParams,
+export const listAttributes = (
+    params?: ListAttributesParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -61,69 +61,69 @@ export const getCatalogApiV1Attributes = (
 
 
 
-export const getGetCatalogApiV1AttributesQueryKey = (params?: GetCatalogApiV1AttributesParams,) => {
+export const getListAttributesQueryKey = (params?: ListAttributesParams,) => {
     return [
     `/catalog/api/v1/attributes`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getGetCatalogApiV1AttributesQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError = Error400Response | Error500Response>(params?: GetCatalogApiV1AttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getListAttributesQueryOptions = <TData = Awaited<ReturnType<typeof listAttributes>>, TError = Error400Response | Error500Response>(params?: ListAttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAttributes>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetCatalogApiV1AttributesQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getListAttributesQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>> = ({ signal }) => getCatalogApiV1Attributes(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listAttributes>>> = ({ signal }) => listAttributes(params, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listAttributes>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetCatalogApiV1AttributesQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>>
-export type GetCatalogApiV1AttributesQueryError = Error400Response | Error500Response
+export type ListAttributesQueryResult = NonNullable<Awaited<ReturnType<typeof listAttributes>>>
+export type ListAttributesQueryError = Error400Response | Error500Response
 
 
-export function useGetCatalogApiV1Attributes<TData = Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError = Error400Response | Error500Response>(
- params: undefined |  GetCatalogApiV1AttributesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError, TData>> & Pick<
+export function useListAttributes<TData = Awaited<ReturnType<typeof listAttributes>>, TError = Error400Response | Error500Response>(
+ params: undefined |  ListAttributesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAttributes>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1Attributes>>,
+          Awaited<ReturnType<typeof listAttributes>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1Attributes>>
+          Awaited<ReturnType<typeof listAttributes>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1Attributes<TData = Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError = Error400Response | Error500Response>(
- params?: GetCatalogApiV1AttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError, TData>> & Pick<
+export function useListAttributes<TData = Awaited<ReturnType<typeof listAttributes>>, TError = Error400Response | Error500Response>(
+ params?: ListAttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAttributes>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1Attributes>>,
+          Awaited<ReturnType<typeof listAttributes>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1Attributes>>
+          Awaited<ReturnType<typeof listAttributes>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1Attributes<TData = Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError = Error400Response | Error500Response>(
- params?: GetCatalogApiV1AttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListAttributes<TData = Awaited<ReturnType<typeof listAttributes>>, TError = Error400Response | Error500Response>(
+ params?: ListAttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAttributes>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Listar atributos com paginação e filtro
  */
 
-export function useGetCatalogApiV1Attributes<TData = Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError = Error400Response | Error500Response>(
- params?: GetCatalogApiV1AttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1Attributes>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListAttributes<TData = Awaited<ReturnType<typeof listAttributes>>, TError = Error400Response | Error500Response>(
+ params?: ListAttributesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAttributes>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetCatalogApiV1AttributesQueryOptions(params,options)
+  const queryOptions = getListAttributesQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -138,8 +138,8 @@ export function useGetCatalogApiV1Attributes<TData = Awaited<ReturnType<typeof g
 /**
  * @summary Criar um novo atributo
  */
-export const postCatalogApiV1Attributes = (
-    postCatalogApiV1AttributesBody: PostCatalogApiV1AttributesBody,
+export const createAttribute = (
+    createAttributeBody: CreateAttributeBody,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -147,18 +147,18 @@ export const postCatalogApiV1Attributes = (
       return customInstance<AttributeDTO>(
       {url: `/catalog/api/v1/attributes`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postCatalogApiV1AttributesBody, signal
+      data: createAttributeBody, signal
     },
       options);
     }
 
 
 
-export const getPostCatalogApiV1AttributesMutationOptions = <TError = Error400Response | ErrorResponseDTO | Error500Response,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Attributes>>, TError,{data: PostCatalogApiV1AttributesBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Attributes>>, TError,{data: PostCatalogApiV1AttributesBody}, TContext> => {
+export const getCreateAttributeMutationOptions = <TError = Error400Response | ErrorResponseDTO | Error500Response,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAttribute>>, TError,{data: CreateAttributeBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof createAttribute>>, TError,{data: CreateAttributeBody}, TContext> => {
 
-const mutationKey = ['postCatalogApiV1Attributes'];
+const mutationKey = ['createAttribute'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -168,10 +168,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postCatalogApiV1Attributes>>, {data: PostCatalogApiV1AttributesBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createAttribute>>, {data: CreateAttributeBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  postCatalogApiV1Attributes(data,requestOptions)
+          return  createAttribute(data,requestOptions)
         }
 
 
@@ -181,27 +181,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostCatalogApiV1AttributesMutationResult = NonNullable<Awaited<ReturnType<typeof postCatalogApiV1Attributes>>>
-    export type PostCatalogApiV1AttributesMutationBody = PostCatalogApiV1AttributesBody
-    export type PostCatalogApiV1AttributesMutationError = Error400Response | ErrorResponseDTO | Error500Response
+    export type CreateAttributeMutationResult = NonNullable<Awaited<ReturnType<typeof createAttribute>>>
+    export type CreateAttributeMutationBody = CreateAttributeBody
+    export type CreateAttributeMutationError = Error400Response | ErrorResponseDTO | Error500Response
 
     /**
  * @summary Criar um novo atributo
  */
-export const usePostCatalogApiV1Attributes = <TError = Error400Response | ErrorResponseDTO | Error500Response,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCatalogApiV1Attributes>>, TError,{data: PostCatalogApiV1AttributesBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useCreateAttribute = <TError = Error400Response | ErrorResponseDTO | Error500Response,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAttribute>>, TError,{data: CreateAttributeBody}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postCatalogApiV1Attributes>>,
+        Awaited<ReturnType<typeof createAttribute>>,
         TError,
-        {data: PostCatalogApiV1AttributesBody},
+        {data: CreateAttributeBody},
         TContext
       > => {
-      return useMutation(getPostCatalogApiV1AttributesMutationOptions(options), queryClient);
+      return useMutation(getCreateAttributeMutationOptions(options), queryClient);
     }
     /**
  * @summary Buscar atributo por ID
  */
-export const getCatalogApiV1AttributesId = (
+export const getAttributeById = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -216,69 +216,69 @@ export const getCatalogApiV1AttributesId = (
 
 
 
-export const getGetCatalogApiV1AttributesIdQueryKey = (id: string,) => {
+export const getGetAttributeByIdQueryKey = (id: string,) => {
     return [
     `/catalog/api/v1/attributes/${id}`
     ] as const;
     }
 
 
-export const getGetCatalogApiV1AttributesIdQueryOptions = <TData = Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError = Error400Response | Error404Response>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetAttributeByIdQueryOptions = <TData = Awaited<ReturnType<typeof getAttributeById>>, TError = Error400Response | Error404Response>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAttributeById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetCatalogApiV1AttributesIdQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getGetAttributeByIdQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>> = ({ signal }) => getCatalogApiV1AttributesId(id, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAttributeById>>> = ({ signal }) => getAttributeById(id, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAttributeById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetCatalogApiV1AttributesIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>>
-export type GetCatalogApiV1AttributesIdQueryError = Error400Response | Error404Response
+export type GetAttributeByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getAttributeById>>>
+export type GetAttributeByIdQueryError = Error400Response | Error404Response
 
 
-export function useGetCatalogApiV1AttributesId<TData = Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError = Error400Response | Error404Response>(
- id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError, TData>> & Pick<
+export function useGetAttributeById<TData = Awaited<ReturnType<typeof getAttributeById>>, TError = Error400Response | Error404Response>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAttributeById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>,
+          Awaited<ReturnType<typeof getAttributeById>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>
+          Awaited<ReturnType<typeof getAttributeById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1AttributesId<TData = Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError = Error400Response | Error404Response>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError, TData>> & Pick<
+export function useGetAttributeById<TData = Awaited<ReturnType<typeof getAttributeById>>, TError = Error400Response | Error404Response>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAttributeById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>,
+          Awaited<ReturnType<typeof getAttributeById>>,
           TError,
-          Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>
+          Awaited<ReturnType<typeof getAttributeById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetCatalogApiV1AttributesId<TData = Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError = Error400Response | Error404Response>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetAttributeById<TData = Awaited<ReturnType<typeof getAttributeById>>, TError = Error400Response | Error404Response>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAttributeById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Buscar atributo por ID
  */
 
-export function useGetCatalogApiV1AttributesId<TData = Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError = Error400Response | Error404Response>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCatalogApiV1AttributesId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetAttributeById<TData = Awaited<ReturnType<typeof getAttributeById>>, TError = Error400Response | Error404Response>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAttributeById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetCatalogApiV1AttributesIdQueryOptions(id,options)
+  const queryOptions = getGetAttributeByIdQueryOptions(id,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -293,9 +293,9 @@ export function useGetCatalogApiV1AttributesId<TData = Awaited<ReturnType<typeof
 /**
  * @summary Atualizar nome do atributo
  */
-export const patchCatalogApiV1AttributesId = (
+export const updateAttribute = (
     id: string,
-    patchCatalogApiV1AttributesIdBody: PatchCatalogApiV1AttributesIdBody,
+    updateAttributeBody: UpdateAttributeBody,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -303,18 +303,18 @@ export const patchCatalogApiV1AttributesId = (
       return customInstance<void>(
       {url: `/catalog/api/v1/attributes/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: patchCatalogApiV1AttributesIdBody, signal
+      data: updateAttributeBody, signal
     },
       options);
     }
 
 
 
-export const getPatchCatalogApiV1AttributesIdMutationOptions = <TError = Error400Response | Error404Response,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchCatalogApiV1AttributesId>>, TError,{id: string;data: PatchCatalogApiV1AttributesIdBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchCatalogApiV1AttributesId>>, TError,{id: string;data: PatchCatalogApiV1AttributesIdBody}, TContext> => {
+export const getUpdateAttributeMutationOptions = <TError = Error400Response | Error404Response,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAttribute>>, TError,{id: string;data: UpdateAttributeBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateAttribute>>, TError,{id: string;data: UpdateAttributeBody}, TContext> => {
 
-const mutationKey = ['patchCatalogApiV1AttributesId'];
+const mutationKey = ['updateAttribute'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -324,10 +324,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchCatalogApiV1AttributesId>>, {id: string;data: PatchCatalogApiV1AttributesIdBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateAttribute>>, {id: string;data: UpdateAttributeBody}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  patchCatalogApiV1AttributesId(id,data,requestOptions)
+          return  updateAttribute(id,data,requestOptions)
         }
 
 
@@ -337,27 +337,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PatchCatalogApiV1AttributesIdMutationResult = NonNullable<Awaited<ReturnType<typeof patchCatalogApiV1AttributesId>>>
-    export type PatchCatalogApiV1AttributesIdMutationBody = PatchCatalogApiV1AttributesIdBody
-    export type PatchCatalogApiV1AttributesIdMutationError = Error400Response | Error404Response
+    export type UpdateAttributeMutationResult = NonNullable<Awaited<ReturnType<typeof updateAttribute>>>
+    export type UpdateAttributeMutationBody = UpdateAttributeBody
+    export type UpdateAttributeMutationError = Error400Response | Error404Response
 
     /**
  * @summary Atualizar nome do atributo
  */
-export const usePatchCatalogApiV1AttributesId = <TError = Error400Response | Error404Response,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchCatalogApiV1AttributesId>>, TError,{id: string;data: PatchCatalogApiV1AttributesIdBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useUpdateAttribute = <TError = Error400Response | Error404Response,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAttribute>>, TError,{id: string;data: UpdateAttributeBody}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof patchCatalogApiV1AttributesId>>,
+        Awaited<ReturnType<typeof updateAttribute>>,
         TError,
-        {id: string;data: PatchCatalogApiV1AttributesIdBody},
+        {id: string;data: UpdateAttributeBody},
         TContext
       > => {
-      return useMutation(getPatchCatalogApiV1AttributesIdMutationOptions(options), queryClient);
+      return useMutation(getUpdateAttributeMutationOptions(options), queryClient);
     }
     /**
  * @summary Remover um atributo
  */
-export const deleteCatalogApiV1AttributesId = (
+export const deleteAttribute = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -371,11 +371,11 @@ export const deleteCatalogApiV1AttributesId = (
 
 
 
-export const getDeleteCatalogApiV1AttributesIdMutationOptions = <TError = Error400Response | Error404Response,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1AttributesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1AttributesId>>, TError,{id: string}, TContext> => {
+export const getDeleteAttributeMutationOptions = <TError = Error400Response | Error404Response,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAttribute>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteAttribute>>, TError,{id: string}, TContext> => {
 
-const mutationKey = ['deleteCatalogApiV1AttributesId'];
+const mutationKey = ['deleteAttribute'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -385,10 +385,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCatalogApiV1AttributesId>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteAttribute>>, {id: string}> = (props) => {
           const {id} = props ?? {};
 
-          return  deleteCatalogApiV1AttributesId(id,requestOptions)
+          return  deleteAttribute(id,requestOptions)
         }
 
 
@@ -398,20 +398,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteCatalogApiV1AttributesIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCatalogApiV1AttributesId>>>
+    export type DeleteAttributeMutationResult = NonNullable<Awaited<ReturnType<typeof deleteAttribute>>>
 
-    export type DeleteCatalogApiV1AttributesIdMutationError = Error400Response | Error404Response
+    export type DeleteAttributeMutationError = Error400Response | Error404Response
 
     /**
  * @summary Remover um atributo
  */
-export const useDeleteCatalogApiV1AttributesId = <TError = Error400Response | Error404Response,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCatalogApiV1AttributesId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useDeleteAttribute = <TError = Error400Response | Error404Response,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAttribute>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteCatalogApiV1AttributesId>>,
+        Awaited<ReturnType<typeof deleteAttribute>>,
         TError,
         {id: string},
         TContext
       > => {
-      return useMutation(getDeleteCatalogApiV1AttributesIdMutationOptions(options), queryClient);
+      return useMutation(getDeleteAttributeMutationOptions(options), queryClient);
     }

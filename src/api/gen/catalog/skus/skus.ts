@@ -29,9 +29,9 @@ import type {
   CreateSkuInputDto,
   InternalErrorResponse,
   NotFoundResponse,
-  PatchSkusIdLogisticsBody,
-  PatchSkusIdPriceBody,
-  SkuDetailsOutputDto
+  SkuDetailsOutputDto,
+  UpdateSkuLogisticsBody,
+  UpdateSkuPriceBody
 } from '../model';
 
 import { customInstance } from '../../../axios-instance';
@@ -44,7 +44,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 /**
  * @summary Cria um novo SKU
  */
-export const postSkus = (
+export const createSku = (
     createSkuInputDto: CreateSkuInputDto,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -60,11 +60,11 @@ export const postSkus = (
 
 
 
-export const getPostSkusMutationOptions = <TError = BadRequestResponse | ConflictResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSkus>>, TError,{data: CreateSkuInputDto}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postSkus>>, TError,{data: CreateSkuInputDto}, TContext> => {
+export const getCreateSkuMutationOptions = <TError = BadRequestResponse | ConflictResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createSku>>, TError,{data: CreateSkuInputDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof createSku>>, TError,{data: CreateSkuInputDto}, TContext> => {
 
-const mutationKey = ['postSkus'];
+const mutationKey = ['createSku'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -74,10 +74,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postSkus>>, {data: CreateSkuInputDto}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createSku>>, {data: CreateSkuInputDto}> = (props) => {
           const {data} = props ?? {};
 
-          return  postSkus(data,requestOptions)
+          return  createSku(data,requestOptions)
         }
 
 
@@ -87,27 +87,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostSkusMutationResult = NonNullable<Awaited<ReturnType<typeof postSkus>>>
-    export type PostSkusMutationBody = CreateSkuInputDto
-    export type PostSkusMutationError = BadRequestResponse | ConflictResponse | InternalErrorResponse
+    export type CreateSkuMutationResult = NonNullable<Awaited<ReturnType<typeof createSku>>>
+    export type CreateSkuMutationBody = CreateSkuInputDto
+    export type CreateSkuMutationError = BadRequestResponse | ConflictResponse | InternalErrorResponse
 
     /**
  * @summary Cria um novo SKU
  */
-export const usePostSkus = <TError = BadRequestResponse | ConflictResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSkus>>, TError,{data: CreateSkuInputDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useCreateSku = <TError = BadRequestResponse | ConflictResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createSku>>, TError,{data: CreateSkuInputDto}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postSkus>>,
+        Awaited<ReturnType<typeof createSku>>,
         TError,
         {data: CreateSkuInputDto},
         TContext
       > => {
-      return useMutation(getPostSkusMutationOptions(options), queryClient);
+      return useMutation(getCreateSkuMutationOptions(options), queryClient);
     }
     /**
  * @summary Lista SKUs por ID do Produto
  */
-export const getSkusProductProductId = (
+export const listSkusByProduct = (
     productId: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -122,69 +122,69 @@ export const getSkusProductProductId = (
 
 
 
-export const getGetSkusProductProductIdQueryKey = (productId: string,) => {
+export const getListSkusByProductQueryKey = (productId: string,) => {
     return [
     `/skus/product/${productId}`
     ] as const;
     }
 
 
-export const getGetSkusProductProductIdQueryOptions = <TData = Awaited<ReturnType<typeof getSkusProductProductId>>, TError = BadRequestResponse | InternalErrorResponse>(productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusProductProductId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getListSkusByProductQueryOptions = <TData = Awaited<ReturnType<typeof listSkusByProduct>>, TError = BadRequestResponse | InternalErrorResponse>(productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkusByProduct>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetSkusProductProductIdQueryKey(productId);
+  const queryKey =  queryOptions?.queryKey ?? getListSkusByProductQueryKey(productId);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSkusProductProductId>>> = ({ signal }) => getSkusProductProductId(productId, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listSkusByProduct>>> = ({ signal }) => listSkusByProduct(productId, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(productId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSkusProductProductId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(productId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listSkusByProduct>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetSkusProductProductIdQueryResult = NonNullable<Awaited<ReturnType<typeof getSkusProductProductId>>>
-export type GetSkusProductProductIdQueryError = BadRequestResponse | InternalErrorResponse
+export type ListSkusByProductQueryResult = NonNullable<Awaited<ReturnType<typeof listSkusByProduct>>>
+export type ListSkusByProductQueryError = BadRequestResponse | InternalErrorResponse
 
 
-export function useGetSkusProductProductId<TData = Awaited<ReturnType<typeof getSkusProductProductId>>, TError = BadRequestResponse | InternalErrorResponse>(
- productId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusProductProductId>>, TError, TData>> & Pick<
+export function useListSkusByProduct<TData = Awaited<ReturnType<typeof listSkusByProduct>>, TError = BadRequestResponse | InternalErrorResponse>(
+ productId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkusByProduct>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getSkusProductProductId>>,
+          Awaited<ReturnType<typeof listSkusByProduct>>,
           TError,
-          Awaited<ReturnType<typeof getSkusProductProductId>>
+          Awaited<ReturnType<typeof listSkusByProduct>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetSkusProductProductId<TData = Awaited<ReturnType<typeof getSkusProductProductId>>, TError = BadRequestResponse | InternalErrorResponse>(
- productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusProductProductId>>, TError, TData>> & Pick<
+export function useListSkusByProduct<TData = Awaited<ReturnType<typeof listSkusByProduct>>, TError = BadRequestResponse | InternalErrorResponse>(
+ productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkusByProduct>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getSkusProductProductId>>,
+          Awaited<ReturnType<typeof listSkusByProduct>>,
           TError,
-          Awaited<ReturnType<typeof getSkusProductProductId>>
+          Awaited<ReturnType<typeof listSkusByProduct>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetSkusProductProductId<TData = Awaited<ReturnType<typeof getSkusProductProductId>>, TError = BadRequestResponse | InternalErrorResponse>(
- productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusProductProductId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListSkusByProduct<TData = Awaited<ReturnType<typeof listSkusByProduct>>, TError = BadRequestResponse | InternalErrorResponse>(
+ productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkusByProduct>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Lista SKUs por ID do Produto
  */
 
-export function useGetSkusProductProductId<TData = Awaited<ReturnType<typeof getSkusProductProductId>>, TError = BadRequestResponse | InternalErrorResponse>(
- productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusProductProductId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useListSkusByProduct<TData = Awaited<ReturnType<typeof listSkusByProduct>>, TError = BadRequestResponse | InternalErrorResponse>(
+ productId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listSkusByProduct>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetSkusProductProductIdQueryOptions(productId,options)
+  const queryOptions = getListSkusByProductQueryOptions(productId,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -199,7 +199,7 @@ export function useGetSkusProductProductId<TData = Awaited<ReturnType<typeof get
 /**
  * @summary Busca detalhes de um SKU
  */
-export const getSkusId = (
+export const getSkuById = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -214,69 +214,69 @@ export const getSkusId = (
 
 
 
-export const getGetSkusIdQueryKey = (id: string,) => {
+export const getGetSkuByIdQueryKey = (id: string,) => {
     return [
     `/skus/${id}`
     ] as const;
     }
 
 
-export const getGetSkusIdQueryOptions = <TData = Awaited<ReturnType<typeof getSkusId>>, TError = NotFoundResponse | InternalErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetSkuByIdQueryOptions = <TData = Awaited<ReturnType<typeof getSkuById>>, TError = NotFoundResponse | InternalErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkuById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetSkusIdQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getGetSkuByIdQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSkusId>>> = ({ signal }) => getSkusId(id, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSkuById>>> = ({ signal }) => getSkuById(id, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSkusId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSkuById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetSkusIdQueryResult = NonNullable<Awaited<ReturnType<typeof getSkusId>>>
-export type GetSkusIdQueryError = NotFoundResponse | InternalErrorResponse
+export type GetSkuByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getSkuById>>>
+export type GetSkuByIdQueryError = NotFoundResponse | InternalErrorResponse
 
 
-export function useGetSkusId<TData = Awaited<ReturnType<typeof getSkusId>>, TError = NotFoundResponse | InternalErrorResponse>(
- id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusId>>, TError, TData>> & Pick<
+export function useGetSkuById<TData = Awaited<ReturnType<typeof getSkuById>>, TError = NotFoundResponse | InternalErrorResponse>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkuById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getSkusId>>,
+          Awaited<ReturnType<typeof getSkuById>>,
           TError,
-          Awaited<ReturnType<typeof getSkusId>>
+          Awaited<ReturnType<typeof getSkuById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetSkusId<TData = Awaited<ReturnType<typeof getSkusId>>, TError = NotFoundResponse | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusId>>, TError, TData>> & Pick<
+export function useGetSkuById<TData = Awaited<ReturnType<typeof getSkuById>>, TError = NotFoundResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkuById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getSkusId>>,
+          Awaited<ReturnType<typeof getSkuById>>,
           TError,
-          Awaited<ReturnType<typeof getSkusId>>
+          Awaited<ReturnType<typeof getSkuById>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetSkusId<TData = Awaited<ReturnType<typeof getSkusId>>, TError = NotFoundResponse | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetSkuById<TData = Awaited<ReturnType<typeof getSkuById>>, TError = NotFoundResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkuById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Busca detalhes de um SKU
  */
 
-export function useGetSkusId<TData = Awaited<ReturnType<typeof getSkusId>>, TError = NotFoundResponse | InternalErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkusId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetSkuById<TData = Awaited<ReturnType<typeof getSkuById>>, TError = NotFoundResponse | InternalErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSkuById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetSkusIdQueryOptions(id,options)
+  const queryOptions = getGetSkuByIdQueryOptions(id,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -291,7 +291,7 @@ export function useGetSkusId<TData = Awaited<ReturnType<typeof getSkusId>>, TErr
 /**
  * @summary Remove um SKU
  */
-export const deleteSkusId = (
+export const deleteSku = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -305,11 +305,11 @@ export const deleteSkusId = (
 
 
 
-export const getDeleteSkusIdMutationOptions = <TError = NotFoundResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSkusId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteSkusId>>, TError,{id: string}, TContext> => {
+export const getDeleteSkuMutationOptions = <TError = NotFoundResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSku>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteSku>>, TError,{id: string}, TContext> => {
 
-const mutationKey = ['deleteSkusId'];
+const mutationKey = ['deleteSku'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -319,10 +319,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteSkusId>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteSku>>, {id: string}> = (props) => {
           const {id} = props ?? {};
 
-          return  deleteSkusId(id,requestOptions)
+          return  deleteSku(id,requestOptions)
         }
 
 
@@ -332,29 +332,29 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteSkusIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteSkusId>>>
+    export type DeleteSkuMutationResult = NonNullable<Awaited<ReturnType<typeof deleteSku>>>
 
-    export type DeleteSkusIdMutationError = NotFoundResponse | InternalErrorResponse
+    export type DeleteSkuMutationError = NotFoundResponse | InternalErrorResponse
 
     /**
  * @summary Remove um SKU
  */
-export const useDeleteSkusId = <TError = NotFoundResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSkusId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useDeleteSku = <TError = NotFoundResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSku>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteSkusId>>,
+        Awaited<ReturnType<typeof deleteSku>>,
         TError,
         {id: string},
         TContext
       > => {
-      return useMutation(getDeleteSkusIdMutationOptions(options), queryClient);
+      return useMutation(getDeleteSkuMutationOptions(options), queryClient);
     }
     /**
  * @summary Atualiza o preço de um SKU
  */
-export const patchSkusIdPrice = (
+export const updateSkuPrice = (
     id: string,
-    patchSkusIdPriceBody: PatchSkusIdPriceBody,
+    updateSkuPriceBody: UpdateSkuPriceBody,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -362,18 +362,18 @@ export const patchSkusIdPrice = (
       return customInstance<SkuDetailsOutputDto>(
       {url: `/skus/${id}/price`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: patchSkusIdPriceBody, signal
+      data: updateSkuPriceBody, signal
     },
       options);
     }
 
 
 
-export const getPatchSkusIdPriceMutationOptions = <TError = BadRequestResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchSkusIdPrice>>, TError,{id: string;data: PatchSkusIdPriceBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchSkusIdPrice>>, TError,{id: string;data: PatchSkusIdPriceBody}, TContext> => {
+export const getUpdateSkuPriceMutationOptions = <TError = BadRequestResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSkuPrice>>, TError,{id: string;data: UpdateSkuPriceBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateSkuPrice>>, TError,{id: string;data: UpdateSkuPriceBody}, TContext> => {
 
-const mutationKey = ['patchSkusIdPrice'];
+const mutationKey = ['updateSkuPrice'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -383,10 +383,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchSkusIdPrice>>, {id: string;data: PatchSkusIdPriceBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSkuPrice>>, {id: string;data: UpdateSkuPriceBody}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  patchSkusIdPrice(id,data,requestOptions)
+          return  updateSkuPrice(id,data,requestOptions)
         }
 
 
@@ -396,29 +396,29 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PatchSkusIdPriceMutationResult = NonNullable<Awaited<ReturnType<typeof patchSkusIdPrice>>>
-    export type PatchSkusIdPriceMutationBody = PatchSkusIdPriceBody
-    export type PatchSkusIdPriceMutationError = BadRequestResponse | InternalErrorResponse
+    export type UpdateSkuPriceMutationResult = NonNullable<Awaited<ReturnType<typeof updateSkuPrice>>>
+    export type UpdateSkuPriceMutationBody = UpdateSkuPriceBody
+    export type UpdateSkuPriceMutationError = BadRequestResponse | InternalErrorResponse
 
     /**
  * @summary Atualiza o preço de um SKU
  */
-export const usePatchSkusIdPrice = <TError = BadRequestResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchSkusIdPrice>>, TError,{id: string;data: PatchSkusIdPriceBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useUpdateSkuPrice = <TError = BadRequestResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSkuPrice>>, TError,{id: string;data: UpdateSkuPriceBody}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof patchSkusIdPrice>>,
+        Awaited<ReturnType<typeof updateSkuPrice>>,
         TError,
-        {id: string;data: PatchSkusIdPriceBody},
+        {id: string;data: UpdateSkuPriceBody},
         TContext
       > => {
-      return useMutation(getPatchSkusIdPriceMutationOptions(options), queryClient);
+      return useMutation(getUpdateSkuPriceMutationOptions(options), queryClient);
     }
     /**
- * @summary Atualiza dados logísticos (peso/dimensões)
+ * @summary Atualiza dados logísticos
  */
-export const patchSkusIdLogistics = (
+export const updateSkuLogistics = (
     id: string,
-    patchSkusIdLogisticsBody: PatchSkusIdLogisticsBody,
+    updateSkuLogisticsBody: UpdateSkuLogisticsBody,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
@@ -426,18 +426,18 @@ export const patchSkusIdLogistics = (
       return customInstance<SkuDetailsOutputDto>(
       {url: `/skus/${id}/logistics`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: patchSkusIdLogisticsBody, signal
+      data: updateSkuLogisticsBody, signal
     },
       options);
     }
 
 
 
-export const getPatchSkusIdLogisticsMutationOptions = <TError = BadRequestResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchSkusIdLogistics>>, TError,{id: string;data: PatchSkusIdLogisticsBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchSkusIdLogistics>>, TError,{id: string;data: PatchSkusIdLogisticsBody}, TContext> => {
+export const getUpdateSkuLogisticsMutationOptions = <TError = BadRequestResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSkuLogistics>>, TError,{id: string;data: UpdateSkuLogisticsBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateSkuLogistics>>, TError,{id: string;data: UpdateSkuLogisticsBody}, TContext> => {
 
-const mutationKey = ['patchSkusIdLogistics'];
+const mutationKey = ['updateSkuLogistics'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -447,10 +447,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchSkusIdLogistics>>, {id: string;data: PatchSkusIdLogisticsBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSkuLogistics>>, {id: string;data: UpdateSkuLogisticsBody}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  patchSkusIdLogistics(id,data,requestOptions)
+          return  updateSkuLogistics(id,data,requestOptions)
         }
 
 
@@ -460,20 +460,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PatchSkusIdLogisticsMutationResult = NonNullable<Awaited<ReturnType<typeof patchSkusIdLogistics>>>
-    export type PatchSkusIdLogisticsMutationBody = PatchSkusIdLogisticsBody
-    export type PatchSkusIdLogisticsMutationError = BadRequestResponse | InternalErrorResponse
+    export type UpdateSkuLogisticsMutationResult = NonNullable<Awaited<ReturnType<typeof updateSkuLogistics>>>
+    export type UpdateSkuLogisticsMutationBody = UpdateSkuLogisticsBody
+    export type UpdateSkuLogisticsMutationError = BadRequestResponse | InternalErrorResponse
 
     /**
- * @summary Atualiza dados logísticos (peso/dimensões)
+ * @summary Atualiza dados logísticos
  */
-export const usePatchSkusIdLogistics = <TError = BadRequestResponse | InternalErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchSkusIdLogistics>>, TError,{id: string;data: PatchSkusIdLogisticsBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useUpdateSkuLogistics = <TError = BadRequestResponse | InternalErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSkuLogistics>>, TError,{id: string;data: UpdateSkuLogisticsBody}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof patchSkusIdLogistics>>,
+        Awaited<ReturnType<typeof updateSkuLogistics>>,
         TError,
-        {id: string;data: PatchSkusIdLogisticsBody},
+        {id: string;data: UpdateSkuLogisticsBody},
         TContext
       > => {
-      return useMutation(getPatchSkusIdLogisticsMutationOptions(options), queryClient);
+      return useMutation(getUpdateSkuLogisticsMutationOptions(options), queryClient);
     }

@@ -7,6 +7,6 @@
 import type { ErrorResponseDTO } from './errorResponseDTO';
 
 /**
- * Erro interno
+ * Recurso não encontrado
  */
-export type Error500Response = ErrorResponseDTO;
+export type NotFoundErrorResponse = ErrorResponseDTO;

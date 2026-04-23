@@ -6,6 +6,6 @@
  */
 
 export interface ErrorResponseDTO {
-  status?: string;
-  errors?: string[];
+  status: string;
+  errors: string[];
 }

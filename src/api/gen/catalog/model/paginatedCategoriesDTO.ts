@@ -7,8 +7,8 @@
 import type { CategoryDTO } from './categoryDTO';
 
 export interface PaginatedCategoriesDTO {
-  items?: CategoryDTO[];
-  total?: number;
-  page?: number;
-  limit?: number;
+  items: CategoryDTO[];
+  total: number;
+  page: number;
+  limit: number;
 }

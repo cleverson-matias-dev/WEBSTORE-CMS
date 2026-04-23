@@ -7,6 +7,6 @@
 import type { ErrorResponseDTO } from './errorResponseDTO';
 
 /**
- * Recurso não encontrado
+ * Não encontrado
  */
 export type NotFoundResponse = ErrorResponseDTO;

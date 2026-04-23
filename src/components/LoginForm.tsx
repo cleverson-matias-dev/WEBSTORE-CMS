@@ -40,7 +40,7 @@ export function LoginForm() {
       })
       
       if(response.user && response.token){
-        useAuthStore.getState().setAuth(response.user, response.token);
+        useAuthStore.getState().setAuth(response.user, response.token, response.refreshToken);
       }
       
       toast.success("Login realizado com sucesso!")

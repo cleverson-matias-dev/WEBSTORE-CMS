@@ -14,6 +14,6 @@ export interface ProductOutputDTO {
   slug: string;
   description: string;
   category: CategoryDTO;
-  images?: ProductImageDTO[];
-  skus?: SkuDTO[];
+  images: ProductImageDTO[];
+  skus: SkuDTO[];
 }

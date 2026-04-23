@@ -17,11 +17,23 @@ import { useListProducts } from "@/api/gen/catalog/produtos/produtos";
 export default function ProductsListing() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [editingProduct, setEditingProduct] = useState<ProductOutputDTO | null>(null);
+  const [searchTherm, setSearchTherm] = useState<string>("");
 
-  const {data: products, error, isLoading } = useListProducts();
+  const {data: products, error, isLoading } = useListProducts({
+    name: searchTherm,
+    
+  });
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const value = e.currentTarget.value;
+
+      setSearchTherm(value)
+    }
+  };
+
 
   if(error) return <>erro!!!</>
-  if(isLoading) return <>isLoading</>
 
   return (
     <div className="p-6 space-y-6 bg-slate-50 min-h-screen">
@@ -45,7 +57,7 @@ export default function ProductsListing() {
       <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border shadow-sm">
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Buscar por nome ou SKU..." className="pl-10" />
+          <Input onKeyUp={handleKeyUp} placeholder="Buscar por nome ou SKU..." className="pl-10" />
         </div>
         <div className="flex items-center gap-2 w-full md:w-auto">
           <Button variant="outline" size="sm">
@@ -185,8 +197,10 @@ export default function ProductsListing() {
           {isLoading ? (
              <Skeleton className="h-4 w-40" />
           ) : (
-            `Mostrando ${products?.items.length} de 450 produtos`
-          )}
+              products && products.total !== undefined ? 
+              (`Mostrando ${products.limit < products.total ? products?.limit : products?.total} de ${products?.total} produtos`) : 
+              ("Nenhum produto encontrado")
+            )}
           <div className="flex gap-2">
             <Button variant="outline" size="sm" disabled>Anterior</Button>
             <Button variant="outline" size="sm" disabled={isLoading}>Próximo</Button>

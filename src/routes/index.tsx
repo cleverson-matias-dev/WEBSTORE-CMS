@@ -11,7 +11,7 @@ import { Register } from '@/pages/Register'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import Unauthorized from '@/pages/Unauthorized'
 import NotFound from '@/pages/NotFound'
-import ProductsListing from '@/pages/ProductListing'
+import ProductsFeature from '@/pages/products'
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     element: <ProtectedRoute allowedRoles={['admin']}><DashboardLayout /></ProtectedRoute>,
     children: [
       { path: '/', element: <DashboardHome /> },
-      { path: '/products', element: <ProductsListing/> },
+      { path: '/products', element: <ProductsFeature/> },
       { path: '/orders', element: <OrderList /> },
       { path: '/customers', element: < Customers/> },
       { path: '/settings', element: <Settings /> },

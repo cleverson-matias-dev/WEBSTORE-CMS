@@ -18,15 +18,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 import type { ProductOutputDTO } from "@/api/gen/catalog/model";
 import StatusBadge from "./StatusBadge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export type PaginationProps = {
   current: number;
@@ -250,65 +245,127 @@ function ProductImage({ src, alt }: { src?: string; alt: string }) {
   );
 }
 
-function ProductInfo({
-  product,
-  onEdit,
-}: {
-  product: ProductOutputDTO;
-  onEdit: () => void;
+// 1. Atualização do Componente ProductInfo
+function ProductInfo({ 
+  product, 
+  onEdit 
+}: { 
+  product: ProductOutputDTO; 
+  onEdit: () => void; 
 }) {
+  const MAX_NAME = 30;
+  const MAX_DESC = 60;
+
+  const truncate = (text: string | undefined, limit: number) => {
+    if (!text) return "";
+    return text.length > limit ? text.substring(0, limit) + "..." : text;
+  };
+
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={200}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="flex flex-col cursor-pointer group" onClick={onEdit}>
-            <span className="font-semibold text-slate-900 truncate group-hover:underline">
-              {product.name}
+          {/* Adicionei inline-block para o trigger ocupar apenas o espaço do texto */}
+          <div 
+            className="flex flex-col cursor-pointer group w-fit max-w-[280px]" 
+            onClick={onEdit}
+          >
+            <span className="font-semibold text-slate-900 group-hover:text-blue-600 group-hover:underline decoration-blue-600/30 underline-offset-4 transition-colors">
+              {truncate(product.name, MAX_NAME)}
             </span>
-            <span className="text-[11px] text-muted-foreground font-mono truncate">
-              /{product.slug}
-            </span>
+            
+            {product.description && (
+              <p className="text-[12px] text-slate-500 mt-0.5 font-normal leading-tight">
+                {truncate(product.description, MAX_DESC)}
+              </p>
+            )}
           </div>
         </TooltipTrigger>
-        <TooltipContent
-          side="right"
-          className="max-w-xs bg-slate-900 text-white p-3 shadow-xl"
+        
+        <TooltipContent 
+          side="right" 
+          align="start" // Alinha o topo do tooltip com o topo do texto
+          sideOffset={8} // Reduz a distância lateral (padrão costuma ser maior)
+          className="max-w-xs bg-slate-900 text-white p-3 shadow-2xl border-none rounded-lg animate-in fade-in slide-in-from-left-1"
         >
-          <p className="font-bold border-b border-slate-700 pb-1 mb-1">
-            {product.name}
-          </p>
-          <p className="text-xs">{product.description || "Sem descrição."}</p>
+          <div className="space-y-1.5">
+            <p className="font-bold text-sm leading-none border-b border-white/10 pb-1.5 mb-1.5">
+              {product.name}
+            </p>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              {product.description || "Sem descrição disponível."}
+            </p>
+          </div>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
 }
 
-function ActionMenu({
-  product,
-  onEdit,
-}: {
-  product: ProductOutputDTO;
-  onEdit: () => void;
-}) {
+
+
+
+function ActionMenu({ product, onEdit }: { product: ProductOutputDTO; onEdit: () => void }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <MoreHorizontal className="h-4 w-4" />
+        <Button 
+          variant="ghost" 
+          className="h-8 w-8 p-0 hover:bg-slate-100 rounded-md transition-colors"
+        >
+          <MoreHorizontal className="h-4 w-4 text-slate-500" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Opções</DropdownMenuLabel>
-        <DropdownMenuItem onClick={onEdit}>Editar Dados Básicos</DropdownMenuItem>
-        <DropdownMenuItem>Ver SKUs ({product.skus.length})</DropdownMenuItem>
-        <DropdownMenuItem>Duplicar</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-red-600">Desativar</DropdownMenuItem>
+      
+      {/* Estilização aplicada aqui para combinar com o Popover de Filtros */}
+      <DropdownMenuContent 
+        align="end" 
+        className="w-56 p-0 bg-white border border-slate-200 shadow-xl rounded-xl overflow-hidden"
+      >
+        {/* Cabeçalho do Menu (seguindo o padrão do filtro) */}
+        <div className="px-4 py-2.5 border-b bg-slate-50/50">
+          <p className="font-semibold text-xs text-slate-900 uppercase tracking-wider">
+            Ações do Produto
+          </p>
+        </div>
+
+        <div className="p-1">
+          <DropdownMenuLabel className="text-[10px] font-bold text-slate-400 uppercase px-3 py-2">
+            Gerenciamento
+          </DropdownMenuLabel>
+          
+          <DropdownMenuItem 
+            onClick={onEdit}
+            className="cursor-pointer px-3 py-2 text-sm text-slate-700 focus:bg-slate-50 focus:text-blue-600 gap-2"
+          >
+            Editar Dados Básicos
+          </DropdownMenuItem>
+          
+          <DropdownMenuItem 
+            className="cursor-pointer px-3 py-2 text-sm text-slate-700 focus:bg-slate-50 focus:text-blue-600 gap-2"
+          >
+            Ver SKUs ({product.skus.length})
+          </DropdownMenuItem>
+          
+          <DropdownMenuItem 
+            className="cursor-pointer px-3 py-2 text-sm text-slate-700 focus:bg-slate-50 focus:text-blue-600 gap-2"
+          >
+            Duplicar
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator className="bg-slate-100" />
+          
+          <DropdownMenuItem 
+            className="cursor-pointer px-3 py-2 text-sm text-red-600 focus:bg-red-50 focus:text-red-700 gap-2"
+          >
+            Desativar Produto
+          </DropdownMenuItem>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
+
 
 function TableSkeleton() {
   return (

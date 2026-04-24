@@ -51,7 +51,8 @@ AXIOS_INSTANCE.interceptors.response.use(
             originalRequest.headers.Authorization = `Bearer ${response.token}`;
           }
           
-          return AXIOS_INSTANCE(originalRequest);
+          console.log(originalRequest.headers?.Authorization, response.token)
+          return AXIOS_INSTANCE(originalRequest); 
 
         } catch (refreshError) {
           // Se o refresh falhar (ex: refresh token expirado), desloga o usuário

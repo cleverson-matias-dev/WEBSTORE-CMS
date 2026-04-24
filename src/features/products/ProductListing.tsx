@@ -149,9 +149,5 @@ export default function ProductsListing() {
   );
 }
 
-/**
- * Componentes Auxiliares
- */
-
 
 

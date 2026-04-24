@@ -2,7 +2,7 @@ import { useState, useDeferredValue } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Download, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import type { ListProductsParams, ProductOutputDTO } from "@/api/gen/catalog/model";
 import { useListProducts } from "@/api/gen/catalog/produtos/produtos";
@@ -11,9 +11,11 @@ import { ProductSheet } from "./components/ProductSheet";
 import { ProductTable } from "./components/ProductTable";
 import ProductFilters from "./components/ProductFilters";
 import { ErrorState } from "./components/ErrorState";
+import { ProductHeader } from "./components/ProductHeader";
 
 
 export default function ProductsListing() {
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [editingProduct, setEditingProduct] = useState<ProductOutputDTO | null>(null);
   const [searchTherm, setSearchTherm] = useState<SearchFilters>({
@@ -26,11 +28,14 @@ export default function ProductsListing() {
   const {data: products, error, isLoading, refetch } = useListProducts({
     name: deferredSearch?.name,
     description: deferredSearch?.description,
-    slug: deferredSearch?.slug
+    slug: deferredSearch?.slug,
+    page: currentPage,
+    limit: 10
   });
 
   const removeFilter = (key: keyof ListProductsParams) => {
     setSearchTherm(prev => ({ ...prev, [key]: "" }));
+    setCurrentPage(1);
   };
 
   const activeFilters = Object.entries(searchTherm).filter(([, value]) => value && value.length > 0);
@@ -38,7 +43,8 @@ export default function ProductsListing() {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       const value = e.currentTarget.value;
-      setSearchTherm({name: value})
+      setSearchTherm({name: value});
+      setCurrentPage(1);
     }
   };
 
@@ -53,20 +59,9 @@ export default function ProductsListing() {
   return (
     <div className="p-6 space-y-6 bg-slate-50 min-h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Produtos</h1>
-          <p className="text-muted-foreground text-sm">Gerencie seu catálogo, SKUs e estoque.</p>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline">
-            <Download className="mr-2 h-4 w-4" /> Exportar
-          </Button>
-          <Button className="bg-primary">
-            <Plus className="mr-2 h-4 w-4" /> Novo Produto
-          </Button>
-        </div>
-      </div>
+      <ProductHeader
+        onNewProduct={() => alert("Abrir modal de novo produto")} 
+      />
 
       {/* Toolbar */}
       <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border shadow-sm">
@@ -101,7 +96,10 @@ export default function ProductsListing() {
             <Button 
               variant="link" 
               size="sm" 
-              onClick={() => setSearchTherm({ name: "", slug: "", description: "" })}
+              onClick={() => {
+                setSearchTherm({ name: "", slug: "", description: "" });
+                setCurrentPage(1);
+              }}
               className="text-muted-foreground text-xs h-auto p-0 ml-2"
             >
               Limpar tudo
@@ -135,8 +133,13 @@ export default function ProductsListing() {
         selectedItems={selectedItems}
         onSelectItems={setSelectedItems}
         onEdit={setEditingProduct}
-        totalProducts={products?.total}
-        limit={products?.limit}
+        // 4. Passar o objeto de paginação completo para a Table
+        pagination={{
+          current: currentPage,
+          total: products?.total || 0,
+          pageSize: 10,
+          onPageChange: setCurrentPage
+        }}
       />
 
       {/* Editor Sheet */}

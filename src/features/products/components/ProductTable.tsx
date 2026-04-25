@@ -267,7 +267,7 @@ function ProductInfo({
         <TooltipTrigger asChild>
           {/* Adicionei inline-block para o trigger ocupar apenas o espaço do texto */}
           <div 
-            className="flex flex-col cursor-pointer group w-fit max-w-[280px]" 
+            className="flex flex-col cursor-pointer group w-fit max-w-70" 
             onClick={onEdit}
           >
             <span className="font-semibold text-slate-900 group-hover:text-blue-600 group-hover:underline decoration-blue-600/30 underline-offset-4 transition-colors">

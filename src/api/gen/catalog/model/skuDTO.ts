@@ -7,9 +7,14 @@
 
 export interface SkuDTO {
   id: string;
-  product_id?: string;
+  product_id: string;
   sku_code: string;
   quantity: number;
   price: number;
-  currency?: string;
+  currency: string;
+  /** Peso do SKU em gramas ou kg */
+  weight: number;
+  dimensions: string;
+  created_at?: string;
+  updated_at?: string;
 }
